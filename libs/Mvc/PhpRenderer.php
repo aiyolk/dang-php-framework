@@ -85,12 +85,19 @@ class Mvc_PhpRenderer
     {
         $layout = new Mvc_View_Helper_Layout();
         $this->__viewHelpers['layout'] = array($layout, "_invoke");
+        
         $partial = new Mvc_View_Helper_Partial();
         $this->__viewHelpers['partial'] = array($partial, "_invoke");
+        
         $pagination = new Mvc_View_Helper_PaginationControl();
         $this->__viewHelpers['paginationControl'] = array($pagination, "_invoke");
+        
         $pagination = new Mvc_View_Helper_Url();
         $this->__viewHelpers['url'] = array($pagination, "_invoke");
+        
+        $headMeta = new Mvc_View_Helper_HeadMeta();
+        $this->__viewHelpers['headMeta'] = array($headMeta, "_invoke");
+
         if (!isset($this->__viewHelpers[$method])) {
             return("Error: View helper '$method' not found!");
         }
