@@ -98,6 +98,9 @@ class Mvc_PhpRenderer
         $headMeta = new Mvc_View_Helper_HeadMeta();
         $this->__viewHelpers['headMeta'] = array($headMeta, "_invoke");
 
+        $headTitle = new Mvc_View_Helper_HeadTitle();
+        $this->__viewHelpers['headTitle'] = array($headTitle, "_invoke");
+
         if (!isset($this->__viewHelpers[$method])) {
             return("Error: View helper '$method' not found!");
         }

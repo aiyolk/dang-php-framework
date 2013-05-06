@@ -1,12 +1,12 @@
 <?php
 
-class Mvc_View_Helper_HeadMeta
+class Mvc_View_Helper_HeadTitle
 {
     private $_standalone;
     
     public function _invoke()
     {
-        $this->_standalone = Mvc_View_Helper_Standalone_HeadMeta::instance();
+        $this->_standalone = Mvc_View_Helper_Standalone_HeadTitle::instance();
         return $this;
     }
     
