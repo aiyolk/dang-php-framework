@@ -13,7 +13,7 @@ class Mvc_View_Helper_Layout
      */
     public function _invoke() 
     {
-        $layoutHtmlModel = Mvc_Template::instance()->getLayoutModel();
+        $layoutHtmlModel = Mvc_Service::instance()->get("layoutModel");
         return $layoutHtmlModel;
     }
     

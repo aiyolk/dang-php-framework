@@ -36,6 +36,7 @@ class Mvc_Param
         $this->_module = $name;
         return $this;
     }
+    
     public function getController()
     {
         return $this->_controller;
