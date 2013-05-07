@@ -60,6 +60,8 @@ class Mvc_Enter
             $controller = Mvc_Template::instance()->getController();
             $action = Mvc_Template::instance()->getAction();
             
+            a
+            
             //获取method里的html代码 
             $actionHtmlModel = $result;
             $path = "./tpl/".$module."/".$controller;
