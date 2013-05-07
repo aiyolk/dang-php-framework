@@ -10,11 +10,13 @@ class Www_AddCart  extends Www_AbstractController
 {
     public function TestAction()
     {
-        $testId = Mvc_Request::instance()->getParamGet("testId", "222");
-        $this->actionHtmlModel->testId = $testId;
-        $this->actionHtmlModel->message = "controller: Add_Cart\n";
+        $actionModel = new Mvc_Model_HtmlModel();
         
-        return $this->actionHtmlModel;
+        $testId = Mvc_Request::instance()->getParamGet("testId", "222");
+        $actionModel->testId = $testId;
+        $actionModel->message = "controller: Add_Cart\n";
+        
+        return $actionModel;
     }
 
 }
