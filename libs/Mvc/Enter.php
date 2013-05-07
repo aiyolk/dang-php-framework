@@ -60,18 +60,6 @@ class Mvc_Enter
             $controller = Mvc_Template::instance()->getController();
             $action = Mvc_Template::instance()->getAction();
             
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            
->>>>>>> parent of 8f8a93f... Add view
-=======
-            
->>>>>>> parent of 8f8a93f... Add view
-=======
-            
->>>>>>> parent of 8f8a93f... Add view
             //获取method里的html代码 
             $actionHtmlModel = $result;
             $path = "./tpl/".$module."/".$controller;
