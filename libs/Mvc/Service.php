@@ -12,9 +12,7 @@ class Mvc_Service
     private static $_instance;
 
     private $_services = array();
-    private $_mapClass = array(
-        'layoutModel' => 'Mvc_Model_HtmlModel',
-    );
+    
     /*
      * 单例方法
      */
@@ -29,7 +27,6 @@ class Mvc_Service
     
     public function __construct()
     {
-        
     }
     
     public function add($name, $service)
@@ -39,15 +36,6 @@ class Mvc_Service
     
     public function get($name)
     {
-        if(!array_key_exists($name, $this->_mapClass)){
-            exit("Service '$name' not found!");
-        }
-
-        if(!isset($this->_services[$name])){
-            $className = $this->_mapClass[$name];
-            $this->_services[$name] = new $className();
-        }
-        
         return $this->_services[$name];
     }
     

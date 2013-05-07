@@ -9,9 +9,8 @@
 
 abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
 {
-    private $variables = array();
-    private $children = array();
-
+    private $variables;
+    
     public function __get($name)
     {
         if (!$this->__isset($name)) {
@@ -99,72 +98,6 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
 
         return $this;
     }
-    
-    public function addChild(Mvc_Model_ModelInterface $child, $captureTo = null)
-    {
-        $this->children[] = $child;
-        if (null !== $captureTo) {
-            $child->setCaptureTo($captureTo);
-        }
-   
-        return $this;
-    }
-
-    /**
-     * Return all children.
-     *
-     * Return specifies an array, but may be any iterable object.
-     *
-     * @return array
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * Does the model have any children?
-     *
-     * @return bool
-     */
-    public function hasChildren()
-    {
-        return (0 < count($this->children));
-    }
-
-    /**
-     * Clears out all child models
-     *
-     * @return ViewModel
-     */
-    public function clearChildren()
-    {
-        $this->children = array();
-        return $this;
-    }
-
-    /**
-     * Set the name of the variable to capture this model to, if it is a child model
-     *
-     * @param  string $capture
-     * @return ViewModel
-     */
-    public function setCaptureTo($capture)
-    {
-        $this->captureTo = (string) $capture;
-        return $this;
-    }
-
-    /**
-     * Get the name of the variable to which to capture this model
-     *
-     * @return string
-     */
-    public function captureTo()
-    {
-        return $this->captureTo;
-    }
-    
 }
    
 

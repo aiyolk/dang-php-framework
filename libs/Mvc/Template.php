@@ -28,6 +28,18 @@ class Mvc_Template
         
         return self::$_instance;
     }
+    
+    /*
+     * 获取模板模型
+     */
+    public function getLayoutModel()
+    {
+        if(!isset($this->_layoutModel)){
+            $this->_layoutModel = new Mvc_Model_HtmlModel();
+        }
+        
+        return $this->_layoutModel;
+    }
 
     public function getLayout()
     {
