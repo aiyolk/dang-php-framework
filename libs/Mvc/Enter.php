@@ -60,7 +60,6 @@ class Mvc_Enter
             $controller = Mvc_Template::instance()->getController();
             $action = Mvc_Template::instance()->getAction();
             
-            
             //获取method里的html代码 
             $actionHtmlModel = $result;
             $path = "./tpl/".$module."/".$controller;
@@ -68,7 +67,6 @@ class Mvc_Enter
             $actionHtmlModel->setTemplateName($action);
             $phpRenderer = new Mvc_PhpRenderer();
             $actionContent = $phpRenderer->renderModel($actionHtmlModel);
-            
             
             //获取layout里的html代码，并将method里的代码传递到模板内容区
             $layoutHtmlModel = Mvc_Template::instance()->getLayoutModel();
