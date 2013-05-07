@@ -54,29 +54,13 @@ class Mvc_Enter
             
         }elseif($result instanceof Mvc_Model_JsonModel){
             echo json_encode($result->result);
-            
         }elseif($result instanceof Mvc_Model_HtmlModel){
             $layout = Mvc_Template::instance()->getLayout();
             $module = Mvc_Template::instance()->getModule();
             $controller = Mvc_Template::instance()->getController();
             $action = Mvc_Template::instance()->getAction();
             
-            $actionModel = $result;
-            $path = "./tpl/".$module."/".$controller;
-            $actionModel->setTemplatePath($path);
-            $actionModel->setTemplateName($action);
-            $actionModel->setCaptureTo('content');
             
-            $layoutModel = Mvc_Service::instance()->get("layoutModel");
-            $path = "./tpl/".$module;
-            $layoutModel->setTemplatePath($path);
-            $layoutModel->setTemplateName($layout);
-            $layoutModel->addChild($actionModel, 'content');
-            
-            $view = new Mvc_View_View();
-            $content = $view->render($layoutModel);
-            
-            /*
             //获取method里的html代码 
             $actionHtmlModel = $result;
             $path = "./tpl/".$module."/".$controller;
@@ -84,6 +68,7 @@ class Mvc_Enter
             $actionHtmlModel->setTemplateName($action);
             $phpRenderer = new Mvc_PhpRenderer();
             $actionContent = $phpRenderer->renderModel($actionHtmlModel);
+            
             
             //获取layout里的html代码，并将method里的代码传递到模板内容区
             $layoutHtmlModel = Mvc_Template::instance()->getLayoutModel();
@@ -93,13 +78,10 @@ class Mvc_Enter
             $layoutHtmlModel->content = $actionContent;
             $phpRenderer = new Mvc_PhpRenderer();
             $content = $phpRenderer->renderModel($layoutHtmlModel);
-            */
             
             echo $content;
-            
         }else{
             echo $result;
-            
         }
     }
 }
