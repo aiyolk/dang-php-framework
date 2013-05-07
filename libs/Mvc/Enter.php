@@ -61,6 +61,10 @@ class Mvc_Enter
             $action = Mvc_Template::instance()->getAction();
             
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            
+>>>>>>> parent of 8f8a93f... Add view
 =======
             
 >>>>>>> parent of 8f8a93f... Add view
