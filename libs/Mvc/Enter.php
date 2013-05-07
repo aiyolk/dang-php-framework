@@ -62,6 +62,10 @@ class Mvc_Enter
             
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            
+>>>>>>> parent of 8f8a93f... Add view
 =======
             
 >>>>>>> parent of 8f8a93f... Add view
