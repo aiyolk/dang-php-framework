@@ -81,7 +81,7 @@ class Dang_Mvc_Enter
             echo $content;
 
         }elseif($result instanceof Dang_Mvc_View_Model_JsonModel){
-            echo json_encode($result->result);
+            echo json_encode($result->getVariables());
 
         }elseif($result instanceof Dang_Mvc_View_Model_HtmlModel){
             $layout = Dang_Mvc_Template::instance()->getLayout();

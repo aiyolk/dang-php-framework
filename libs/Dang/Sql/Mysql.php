@@ -4,19 +4,21 @@ namespace Dang\Sql;
 
 class Mysql
 {
+    private $_newLink;
     private $_dblink;
 	private $_debug;
 
     //－－－－－－－－-
 	//php5构造函数
 	//－－－－－－－－-
-	function __construct()
+	function __construct($newLink = false)
 	{
+        $this->_newLink = $newLink;
 	}
 
 	public function connect($dbhost, $dbuser, $dbpw, $dbname)
     {
-		if(!$this->_dblink = mysql_connect($dbhost, $dbuser, $dbpw, true)) {
+		if(!$this->_dblink = mysql_connect($dbhost, $dbuser, $dbpw, $this->_newLink)) {
 			$this->halt('Unable to connect the MySQL server.');
 		}
 

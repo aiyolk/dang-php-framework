@@ -18,7 +18,7 @@ class Quick
 
         $config = \Dang\Quick::config("mysql");
 
-        $db = new \Dang\Sql\Mysql();
+        $db = new \Dang\Sql\Mysql(true);
         $db->connect($config->{$name}->host, $config->{$name}->user, $config->{$name}->passwd, $config->{$name}->dbname);
 
         $db->debug($dbdebug);
