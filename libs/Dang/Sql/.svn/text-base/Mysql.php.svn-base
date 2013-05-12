@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Dang\Sql;
 
 class Mysql
@@ -14,13 +15,20 @@ class Mysql
 	{
 	}
 
-	public function connect($dbhost, $dbuser, $dbpw, $dbname)
+	public function connect($dbhost, $dbuser, $dbpw)
     {
-		if(!$this->_dblink = mysql_connect($dbhost, $dbuser, $dbpw, true)) {
+		if(!$this->_dblink = mysql_connect($dbhost, $dbuser, $dbpw)) {
 			$this->halt('Unable to connect the MySQL server.');
 		}
 
 		mysql_query("SET names utf8", $this->_dblink);
+
+        return $this;
+	}
+
+	public function selectDb($dbname)
+    {
+
         mysql_select_db($dbname, $this->_dblink);
 
         return $this;

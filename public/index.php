@@ -8,13 +8,13 @@ chdir(dirname(dirname(__FILE__)));
 
 error_reporting("2047");
 
-include "./libs/Mvc/Autoloader.php";
+include "./libs/Dang/Mvc/Autoloader.php";
 //设置自动加载
-$autoloader = new Mvc_Autoloader();
+$autoloader = new Dang_Mvc_Autoloader();
 $autoloader->register();
 
 //初始化入口
-$enter = new Mvc_Enter();
+$enter = new Dang_Mvc_Enter();
 //执行控制器里的代码
 $enter->run();
 
