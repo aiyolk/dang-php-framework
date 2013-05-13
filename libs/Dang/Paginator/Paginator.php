@@ -79,14 +79,18 @@ class Dang_Paginator_Paginator
         $pages->first            = 1;
         $pages->current          = $currentPageNumber;
         $pages->last             = $pageCount;
-
+        
         // Previous and next
         if ($currentPageNumber - 1 > 0) {
             $pages->previous = $currentPageNumber - 1;
+        }else{
+            $pages->previous = 0;
         }
 
         if ($currentPageNumber + 1 <= $pageCount) {
             $pages->next = $currentPageNumber + 1;
+        }else{
+            $pages->next = 0;
         }
 
         // Pages in range
@@ -108,6 +112,7 @@ class Dang_Paginator_Paginator
     
     public function getScrollingStylePages()
     {
+        $pageCount  = $this->pageCount();
         $pageRange  = $this->getPageRange();
         $pageNumber = $this->getCurrentPageNumber();
 
@@ -116,8 +121,8 @@ class Dang_Paginator_Paginator
 
         if ($originalPageRange + $pageNumber - 1 < $pageRange) {
             $pageRange = $originalPageRange + $pageNumber - 1;
-        } elseif ($originalPageRange + $pageNumber - 1 > count($paginator)) {
-            $pageRange = $originalPageRange + count($paginator) - $pageNumber;
+        } elseif ($originalPageRange + $pageNumber - 1 > $pageCount) {
+            $pageRange = $originalPageRange + $pageCount - $pageNumber;
         }
 
         $pageRange = $this->getPageRange();

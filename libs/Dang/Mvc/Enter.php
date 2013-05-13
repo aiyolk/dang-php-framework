@@ -95,12 +95,11 @@ class Dang_Mvc_Enter
             $actionModel->setTemplateName($action);
             $actionModel->setCaptureTo('content');
 
-            $layoutModel = Dang_Mvc_Service::instance()->get("layoutModel");
+            $layoutModel = Dang_Mvc_ServiceManager::instance()->get("layoutModel");
             $path = "./tpl/".$module;
             $layoutModel->setTemplatePath($path);
             $layoutModel->setTemplateName($layout);
             $layoutModel->addChild($actionModel, 'content');
-
             $view = new Dang_Mvc_View_View();
             $content = $view->render($layoutModel);
 

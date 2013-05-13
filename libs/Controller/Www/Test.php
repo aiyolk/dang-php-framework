@@ -16,6 +16,12 @@ class Controller_Www_Test  extends Controller_Www_Abstract
         $htmlModel->testId = $testId;
         $htmlModel->message = "Controller: test\n";
 
+        $paginator = new Dang_Paginator_Paginator();
+        $paginator->setTotalItemCount(200);
+        $paginator->setCurrentPageNumber(Dang_Mvc_Request::instance()->getParamGet("page", 1));
+        $htmlModel->paginator = $paginator;
+        $htmlModel->requestParams = Dang_Mvc_Request::instance()->getParamsGet();
+        
         return $htmlModel;
     }
 

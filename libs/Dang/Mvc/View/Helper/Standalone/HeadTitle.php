@@ -1,6 +1,6 @@
 <?php
 
-class Mvc_View_Helper_Standalone_HeadTitle
+class Dang_Mvc_View_Helper_Standalone_HeadTitle
 {
     private static $instance = null;
     

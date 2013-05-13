@@ -5,7 +5,7 @@
  * 使用方法: $this->layout()->content;
  */
 
-class Mvc_View_Helper_Layout
+class Dang_Mvc_View_Helper_Layout
 {
     /*
      * 视图入口，当调用此助手的时候，将会调用此方法
@@ -13,8 +13,7 @@ class Mvc_View_Helper_Layout
      */
     public function _invoke() 
     {
-        $layoutModel = Mvc_Service::instance()->get("layoutModel");
-        return $layoutModel;
+        return Dang_Mvc_ServiceManager::instance()->get("layoutModel");
     }
     
 }

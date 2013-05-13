@@ -1,12 +1,12 @@
 <?php
 
-class Mvc_View_Helper_HeadMeta
+class Dang_Mvc_View_Helper_HeadMeta
 {
     private $_standalone;
     
     public function _invoke()
     {
-        $this->_standalone = Mvc_View_Helper_Standalone_HeadMeta::instance();
+        $this->_standalone = Dang_Mvc_View_Helper_Standalone_HeadMeta::instance();
         return $this;
     }
     

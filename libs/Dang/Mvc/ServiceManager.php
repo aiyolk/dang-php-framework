@@ -7,14 +7,15 @@
  * @author wuqingcheng
  */
 
-class Dang_Mvc_Service
+class Dang_Mvc_ServiceManager
 {
-    private static $_instance;
+    public static $_instance;
 
-    private $_services = array();
-    private $_mapClass = array(
-        'layoutModel' => 'Dang_Mvc_Model_HtmlModel',
+    protected $_services = array();
+    protected $_invokableClasses = array(
+        'layoutModel' => 'Dang_Mvc_View_Model_HtmlModel',
     );
+
     /*
      * 单例方法
      */
@@ -32,19 +33,14 @@ class Dang_Mvc_Service
 
     }
 
-    public function add($name, $service)
-    {
-        $this->_services[$name] = $service;
-    }
-
     public function get($name)
     {
-        if(!array_key_exists($name, $this->_mapClass)){
+        if(!array_key_exists($name, $this->_invokableClasses)){
             exit("Service '$name' not found!");
         }
 
         if(!isset($this->_services[$name])){
-            $className = $this->_mapClass[$name];
+            $className = $this->_invokableClasses[$name];
             $this->_services[$name] = new $className();
         }
 

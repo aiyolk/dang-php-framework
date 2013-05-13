@@ -5,7 +5,7 @@
  * 使用方法: echo $this->Partial("Www_Test_Product", array('productId'=>1111));
  */
 
-class Mvc_View_Helper_Partial
+class Dang_Mvc_View_Helper_Partial
 {
     public function _invoke($filename = null, $values = null)
     {
@@ -13,7 +13,7 @@ class Mvc_View_Helper_Partial
             return $this;
         }
 
-        $phpRenderer = new Mvc_PhpRenderer();
+        $phpRenderer = new Dang_Mvc_PhpRenderer();
         
         return $phpRenderer->renderPhtml($filename, $values);
     }

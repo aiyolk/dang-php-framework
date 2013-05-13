@@ -1,6 +1,6 @@
 <?php
 
-class Mvc_View_Helper_Standalone_HeadMeta
+class Dang_Mvc_View_Helper_Standalone_HeadMeta
 {
     private static $instance = null;
     

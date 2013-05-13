@@ -5,11 +5,11 @@
  * 使用方法: echo $this->url($params);
  */
 
-class Mvc_View_Helper_Url
+class Dang_Mvc_View_Helper_Url
 {
     public function _invoke($params)
     {
-        $str = Mvc_Utility::appendParams($params);
+        $str = Dang_Mvc_Utility::appendParams($params);
         return "/?".$str;
     }
     

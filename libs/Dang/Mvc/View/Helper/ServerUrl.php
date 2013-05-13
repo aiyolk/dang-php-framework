@@ -1,6 +1,6 @@
 <?php
 
-class Mvc_View_Helper_ServerUrl
+class Dang_Mvc_View_Helper_ServerUrl
 {
     /**
      * Scheme

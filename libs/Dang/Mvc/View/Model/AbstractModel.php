@@ -100,7 +100,7 @@ abstract class Dang_Mvc_View_Model_AbstractModel implements Dang_Mvc_View_Model_
         return $this;
     }
 
-    public function addChild(Dang_Mvc_Model_ModelInterface $child, $captureTo = null)
+    public function addChild(Dang_Mvc_View_Model_ModelInterface $child, $captureTo = null)
     {
         $this->children[] = $child;
         if (null !== $captureTo) {
