@@ -24,6 +24,11 @@ class Mvc_View_Helper_Standalone_HeadTitle
         $this->_items[] = $title;
     }
     
+    public function prepend($title)
+    {
+        array_unshift($this->_items, $title);
+    }
+    
     public function toString()
     {
         return "<title>".join(" - ", $this->_items)."</title>";
