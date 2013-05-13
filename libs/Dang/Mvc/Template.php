@@ -29,18 +29,6 @@ class Dang_Mvc_Template
         return self::$_instance;
     }
 
-    /*
-     * 获取模板模型
-     */
-    public function getLayoutModel()
-    {
-        if(!isset($this->_layoutModel)){
-            $this->_layoutModel = new Dang_Mvc_View_Model_HtmlModel();
-        }
-
-        return $this->_layoutModel;
-    }
-
     public function getLayout()
     {
         if(!isset($this->_layout)){

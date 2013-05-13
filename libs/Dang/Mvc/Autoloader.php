@@ -10,8 +10,6 @@
 
 class Dang_Mvc_Autoloader
 {
-    private $_path;
-
     public function register()
     {
         spl_autoload_register(array($this, "load"));

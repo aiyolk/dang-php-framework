@@ -1,4 +1,9 @@
 
+<?php 
+$this->headMeta()->append('<meta charset="ISO-8859-1">')->append('<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />');
+$this->headTitle()->prepend("aaa");
+?>
+
 <?php echo $this->message;?>
 
 <?php echo $this->partial("Www/Test/Product", array('productId'=>1111));?>

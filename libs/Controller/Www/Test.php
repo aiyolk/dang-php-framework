@@ -22,6 +22,17 @@ class Controller_Www_Test  extends Controller_Www_Abstract
         $htmlModel->paginator = $paginator;
         $htmlModel->requestParams = Dang_Mvc_Request::instance()->getParamsGet();
         
+        $user = "root";
+        $pass = "pass";
+        try {
+            $db = new PDO('mysql:host=localhost;dbname=test', $user, $pass);
+            $db = null;
+        } catch (PDOException $e) {
+            print_r($e);
+            print "Error: " . $e->getMessage() . "<br/>";
+            die();
+        }
+        
         return $htmlModel;
     }
 

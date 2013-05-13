@@ -41,8 +41,8 @@ class Dang_Mvc_View_HelperManager
 
         if(!isset($this->_services[$name])){
             $className = $this->_invokableClasses[$name];
-            $instance = new $className();
-            $this->_services[$name] = array($instance, "_invoke");
+            $class = new $className();
+            $this->_services[$name] = array($class, "_invoke");
         }
 
         return $this->_services[$name];
