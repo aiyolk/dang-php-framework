@@ -21,9 +21,16 @@ class Mvc_View_Helper_HeadTitle
         print_r($args);
     }
     
-    public function append($meta)
+    public function append($title)
     {
-        $this->_standalone->append($meta);
+        $this->_standalone->append($title);
+        
+        return $this;
+    }
+    
+    public function prepend($title)
+    {
+        $this->_standalone->prepend($title);
         
         return $this;
     }
