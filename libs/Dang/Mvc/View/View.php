@@ -1,6 +1,6 @@
 <?php
 
-class Mvc_View_View
+class Dang_Mvc_View_View
 {
     /**
      * @var Request
@@ -71,7 +71,7 @@ class Mvc_View_View
      * @throws Exception\RuntimeException
      * @return void
      */
-    public function render(Mvc_Model_ModelInterface $model)
+    public function render(Dang_Mvc_Model_ModelInterface $model)
     {
         // If we have children, render them first, but only if:
         // a) the renderer does not implement TreeRendererInterface, or
@@ -93,9 +93,9 @@ class Mvc_View_View
      * @throws Exception\DomainException
      * @return void
      */
-    protected function renderChildren(Mvc_Model_ModelInterface $model)
+    protected function renderChildren(Dang_Mvc_Model_ModelInterface $model)
     {
-        foreach ($model->getChildren() as $child) 
+        foreach ($model->getChildren() as $child)
         {
             $content  = $this->render($child);
             $capture = $child->captureTo();
@@ -104,5 +104,5 @@ class Mvc_View_View
             }
         }
     }
-    
+
 }

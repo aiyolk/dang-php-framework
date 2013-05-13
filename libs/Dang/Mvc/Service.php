@@ -7,13 +7,13 @@
  * @author wuqingcheng
  */
 
-class Mvc_Service 
+class Dang_Mvc_Service
 {
     private static $_instance;
 
     private $_services = array();
     private $_mapClass = array(
-        'layoutModel' => 'Mvc_Model_HtmlModel',
+        'layoutModel' => 'Dang_Mvc_Model_HtmlModel',
     );
     /*
      * 单例方法
@@ -23,20 +23,20 @@ class Mvc_Service
         if(!isset(self::$_instance)){
             self::$_instance = new self();
         }
-        
+
         return self::$_instance;
     }
-    
+
     public function __construct()
     {
-        
+
     }
-    
+
     public function add($name, $service)
     {
         $this->_services[$name] = $service;
     }
-    
+
     public function get($name)
     {
         if(!array_key_exists($name, $this->_mapClass)){
@@ -47,10 +47,10 @@ class Mvc_Service
             $className = $this->_mapClass[$name];
             $this->_services[$name] = new $className();
         }
-        
+
         return $this->_services[$name];
     }
-    
+
 }
 
 ?>

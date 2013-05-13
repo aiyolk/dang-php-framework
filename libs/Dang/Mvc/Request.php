@@ -2,20 +2,20 @@
 
 /*
  * 用于获取请求的参数
- * 
- * @author: wuqingcheng 
+ *
+ * @author: wuqingcheng
  * @date: 2013.04.09
  * @email wqc200@gmail.com
  */
-class Mvc_Request
+class Dang_Mvc_Request
 {
-    protected static $_instance = null; 
-    
+    protected static $_instance = null;
+
     private $_post = array();  //post里的参数
     private $_get = array();  //命令行下/和url里get里的参数都放在这里
-    
+
     public $isConsole = 0;  //是否命令行，1是命令行,0非命令行
-    
+
     /*
      * 单例模式入口
      */
@@ -24,10 +24,10 @@ class Mvc_Request
         if(self::$_instance == null){
             self::$_instance = new self();
         }
-        
+
         return self::$_instance;
     }
-    
+
     /*
      * 命令行下的执行结果:
      * $str = "php /path/index.php first=value&arr[]=foo+bar&arr[]=baz";
@@ -39,7 +39,7 @@ class Mvc_Request
     public function __construct()
     {
         $_ddargv = array();
-        
+
         $argv = array();
         if(isset($_SERVER['argv'])){
             $argv = $_SERVER['argv'];
@@ -60,7 +60,7 @@ class Mvc_Request
         }
         $this->_post = $_POST;
     }
-    
+
     /*
      * 获取post参数，如果没有设置，则返回默认值
      */
@@ -69,10 +69,10 @@ class Mvc_Request
         if(isset($this->_post[$name])){
             return $this->_post[$name];
         }
-        
+
         return $default;
     }
-    
+
     /*
      * 设置post参数值
      * 同时将修改同步到$clean_gp
@@ -82,7 +82,7 @@ class Mvc_Request
         $this->_post[$name] = $value;
         return $this;
     }
-    
+
     /*
      * 检查post里的值是否设置
      */
@@ -91,10 +91,10 @@ class Mvc_Request
         if(isset($this->_post[$name])){
             return true;
         }
-        
+
         return false;
     }
-    
+
     /*
      * 命令行下参数：first=value&arr[]=foo+bar&arr[]=baz
      * 由于命令行下的参数传递和url里的一样，所以将命令行下的参数也归入get里
@@ -104,15 +104,15 @@ class Mvc_Request
         if(isset($this->_get[$name])){
             return $this->_get[$name];
         }
-        
+
         return $default;
     }
-    
+
     public function getParamsGet()
     {
         return $this->_get;
     }
-    
+
     /*
      */
     public function setParamGet($name, $value)
@@ -120,7 +120,7 @@ class Mvc_Request
         $this->_get[$name] = $value;
         return $this;
     }
-    
+
     /*
      * 获取参数, 依次获取 get post里的值，如果没有找到则返回默认值
      */
@@ -129,18 +129,18 @@ class Mvc_Request
         if(isset($this->_get[$name])){
             return $this->_get[$name];
         }
-        
+
         if($this->isConsole == 1){
             return $default;
         }
-        
+
         if(isset($this->_post[$name])){
             return $this->_post[$name];
         }
-        
+
         return $default;
     }
-    
+
     /*
      * xss攻击，放在最终render 模板的时候进行，程序运行期间，处理的都是最原始的数据
      * sql攻击，放在最终执行sql语句的时候进行，程序运行期间，处理的都是最原始的数据
@@ -149,12 +149,12 @@ class Mvc_Request
      */
     public function setParamDefault(array $defaultValues)
     {
-        //如果参数不是数组，什么都不做 
+        //如果参数不是数组，什么都不做
         if(!is_array($defaultValues)){
             return $this;
         }
-        
-        foreach ($defaultValues as $key => $value) 
+
+        foreach ($defaultValues as $key => $value)
         {
             //url请求模式
             if($this->isConsole == 0){
@@ -169,10 +169,10 @@ class Mvc_Request
 
             $this->setParamGet($key, $value);
         }
-        
+
         return $this;
     }
-    
+
     /*
      */
     public function setParam($name, $value)

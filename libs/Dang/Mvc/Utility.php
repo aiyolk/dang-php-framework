@@ -7,20 +7,20 @@
  * @date 2013.04.22
  * @email wqc200@gmail.com
  */
-class Mvc_Utility 
+class Dang_Mvc_Utility
 {
     static function paramUrlToMvc($param)
     {
-        $param = preg_replace("/_([a-z]){1}/e", 
-             "strtoupper('\\1')", 
+        $param = preg_replace("/[_-]([a-z]){1}/e",
+             "strtoupper('\\1')",
              $param);
-        $param = preg_replace("/_([0-9]){1}/e", 
-             "\\1", 
+        $param = preg_replace("/[_-]([0-9]){1}/e",
+             "\\1",
              $param);
-        
+
         return $param;
     }
-    
+
     /*
      * 将数组转换成url字符串
      */

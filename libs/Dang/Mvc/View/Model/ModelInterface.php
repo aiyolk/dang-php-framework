@@ -1,6 +1,6 @@
 <?php
 
-interface Mvc_Model_ModelInterface
+interface Dang_Mvc_View_Model_ModelInterface
 {
     public function getVariable($name, $default = null);
 

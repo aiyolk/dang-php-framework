@@ -7,9 +7,8 @@
  * @date 2013.04.09
  */
 
-class Mvc_Model_JsonModel {
-    public $result = null;
-    
+class Dang_Mvc_View_Model_JsonModel extends Dang_Mvc_View_Model_HtmlModel
+{
 }
 
 ?>

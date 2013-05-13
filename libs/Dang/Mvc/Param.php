@@ -6,14 +6,14 @@
  * @date 2013.04.22
  * @email wqc200@gmail.com
  */
-class Mvc_Param
+class Dang_Mvc_Param
 {
-    protected static $_instance = null; 
-    
+    protected static $_instance = null;
+
     protected $_module;
     protected $_controller;
     protected $_action;
-    
+
     /*
      * 单例模式入口
      */
@@ -22,10 +22,10 @@ class Mvc_Param
         if(self::$_instance == null){
             self::$_instance = new self();
         }
-        
+
         return self::$_instance;
     }
-    
+
     public function getModule()
     {
         return $this->_module;
@@ -46,7 +46,7 @@ class Mvc_Param
         $this->_controller = $name;
         return $this;
     }
-    
+
     public function getAction()
     {
         return $this->_action;

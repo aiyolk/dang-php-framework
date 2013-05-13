@@ -7,7 +7,7 @@
  * @date 2013.04.09
  */
 
-abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
+abstract class Dang_Mvc_View_Model_AbstractModel implements Dang_Mvc_View_Model_ModelInterface
 {
     private $variables = array();
     private $children = array();
@@ -33,7 +33,7 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
     {
         $this->setVariable($name, $value);
     }
-    
+
     /**
      * 重写 __isset()方法
      *
@@ -45,7 +45,7 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
         $variables = $this->getVariables();
         return isset($variables[$name]);
     }
-    
+
     /**
      * 获取一个视图变量
      *
@@ -62,7 +62,7 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
 
         return $default;
     }
-    
+
     /**
      * 获取所有的视图变量
      *
@@ -72,7 +72,7 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
     {
         return $this->variables;
     }
-    
+
     /**
      * 设置一个视图变量
      *
@@ -85,7 +85,7 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
         $this->variables[(string) $name] = $value;
         return $this;
     }
-    
+
     public function setVariables($variables, $overwrite = false)
     {
         if ($overwrite) {
@@ -99,14 +99,14 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
 
         return $this;
     }
-    
-    public function addChild(Mvc_Model_ModelInterface $child, $captureTo = null)
+
+    public function addChild(Dang_Mvc_Model_ModelInterface $child, $captureTo = null)
     {
         $this->children[] = $child;
         if (null !== $captureTo) {
             $child->setCaptureTo($captureTo);
         }
-   
+
         return $this;
     }
 
@@ -164,8 +164,8 @@ abstract class Mvc_Model_AbstractModel implements Mvc_Model_ModelInterface
     {
         return $this->captureTo;
     }
-    
+
 }
-   
+
 
 ?>

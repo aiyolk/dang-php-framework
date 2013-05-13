@@ -2,21 +2,21 @@
 
 /*
  * 模板暂存器
- * 
+ *
  * @author wuqingcheng
  * @date 2013.04.18
  */
 
-class Mvc_Template
+class Dang_Mvc_Template
 {
-    protected static $_instance = null; 
-    
+    protected static $_instance = null;
+
     protected $_layoutModel;
     protected $_layout;
     protected $_module;
     protected $_controller;
     protected $_action;
-    
+
     /*
      * 单例模式入口
      */
@@ -25,19 +25,19 @@ class Mvc_Template
         if(self::$_instance == null){
             self::$_instance = new self();
         }
-        
+
         return self::$_instance;
     }
-    
+
     /*
      * 获取模板模型
      */
     public function getLayoutModel()
     {
         if(!isset($this->_layoutModel)){
-            $this->_layoutModel = new Mvc_Model_HtmlModel();
+            $this->_layoutModel = new Dang_Mvc_View_Model_HtmlModel();
         }
-        
+
         return $this->_layoutModel;
     }
 
@@ -46,7 +46,7 @@ class Mvc_Template
         if(!isset($this->_layout)){
             $this->_layout = "Layout";
         }
-        
+
         return $this->_layout;
     }
 
@@ -55,14 +55,14 @@ class Mvc_Template
         $this->_layout = $name;
         return $this;
     }
-    
+
     public function getModule()
     {
         if(!isset($this->_module)){
-            $module = Mvc_Param::instance()->getModule();
+            $module = Dang_Mvc_Param::instance()->getModule();
             $this->_module = $module;
         }
-        
+
         return $this->_module;
     }
 
@@ -74,10 +74,10 @@ class Mvc_Template
     public function getController()
     {
         if(!isset($this->_controller)){
-            $controller = Mvc_Param::instance()->getController();
+            $controller = Dang_Mvc_Param::instance()->getController();
             $this->_controller = $controller;
         }
-        
+
         return $this->_controller;
     }
 
@@ -86,14 +86,14 @@ class Mvc_Template
         $this->_controller = $name;
         return $this;
     }
-    
+
     public function getAction()
     {
         if(!isset($this->_action)){
-            $action = Mvc_Param::instance()->getAction();
+            $action = Dang_Mvc_Param::instance()->getAction();
             $this->_action = $action;
         }
-        
+
         return $this->_action;
     }
 
