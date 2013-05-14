@@ -18,6 +18,9 @@ class Quick
 
         $config = \Dang\Quick::config("mysql");
 
+        /*
+         * 初始化mysql实例，要求新建mysql连接的resource id
+         */
         $db = new \Dang\Sql\Mysql(true);
         $db->connect($config->{$name}->host, $config->{$name}->user, $config->{$name}->passwd, $config->{$name}->dbname);
 

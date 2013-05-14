@@ -1,12 +1,25 @@
-
 <?php 
-$this->headMeta()->append('<meta charset="ISO-8859-1">')->append('<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />');
-$this->headTitle()->prepend("aaa");
+$this->headMeta()->append('<meta charset="utf-8">')->append('<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />');
+$this->headTitle()->append("test")->append("category");
 ?>
 
-<?php echo $this->message;?>
+<div class="hero-unit">
+<h1>Hello, world!</h1>
+<p><?php echo $this->message;?></p>
+<p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
 
-<?php echo $this->partial("Www/Test/Product", array('productId'=>1111));?>
+<div class="container">
+<h3>./tpl/Wwww/Test/Product.phtml</h3>
+<?php echo $this->partial("Www/Test/Product", array('message'=> "这里调用的模板是：./tpl/Www/Test/Product.html"));?>
+</div>
 
+<div class="container">
+<h3>./tpl/Wwww/Product.phtml</h3>
+<?php echo $this->partial("Www/Product", array('message'=> "这里调用的模板是：./tpl/Www/Product.html"));?>
+</div>
+
+<div class="container">
+<h3>这里是分页</h3>
 <?php echo $this->paginationControl($this->paginator, "Www/Pagination", $this->requestParams);?>
-
+</div>
