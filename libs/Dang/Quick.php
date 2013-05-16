@@ -10,6 +10,10 @@ class Quick
 
     public static function mysql($name)
     {
+        if (isset(self::$_mysql[$name])) {
+            return self::$_mysql[$name];
+        }
+
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
         $config = \Dang\Quick::config("mysql");
@@ -24,7 +28,9 @@ class Quick
 
         $db->debug($dbdebug);
 
-        return $db;
+        self::$_mysql[$name] = $db;
+
+        return self::$_mysql[$name];
     }
 
     public static function config($name)
