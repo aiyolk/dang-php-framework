@@ -4,33 +4,29 @@ namespace Dang;
 
 class Quick
 {
-    private static $_mysql = array();
     private static $_config = array();
     private static $_logger = array();
 
+    /*
+     * 创建数据库连接
+     */
     public static function mysql($name)
     {
-        if (isset(self::$_mysql[$name])) {
-            return self::$_mysql[$name];
-        }
-
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
         $config = \Dang\Quick::config("mysql");
 
-        /*
-         * 初始化mysql实例，要求新建mysql连接的resource id
-         */
-        //$db = new \Dang\Sql\Mysql(true);
-        //$db->connect($config->{$name}->host, $config->{$name}->user, $config->{$name}->passwd, $config->{$name}->dbname);
-        $dsn = "mysql:dbname=".$config->{$name}->dbname.";host=".$config->{$name}->host;
-        $db = new \Dang\Sql\SafePdo($dsn, $config->{$name}->user, $config->{$name}->passwd, array(\PDO::ATTR_PERSISTENT => true));
+        if($config->{$name}->tool == "Pdo"){
+            $dsn = "mysql:dbname=".$config->{$name}->dbname.";host=".$config->{$name}->host;
+            $db = new \Dang\Sql\SafePdo($dsn, $config->{$name}->user, $config->{$name}->passwd, array(\PDO::ATTR_PERSISTENT => true));
+        }else{
+            $db = new \Dang\Sql\Mysql();
+            $db->connect($config->{$name}->host, $config->{$name}->user, $config->{$name}->passwd, $config->{$name}->dbname);
+        }
 
         $db->debug($dbdebug);
 
-        self::$_mysql[$name] = $db;
-
-        return self::$_mysql[$name];
+        return $db;
     }
 
     public static function config($name)
