@@ -14,6 +14,12 @@ class Dang_Mvc_Enter
      */
     function __construct()
     {
+        if(isset($_SERVER['REQUEST_URI'])){
+            $request_url = $_SERVER['REQUEST_URI'];
+            $router = new \Dang\Mvc\Router();
+            $router->fromUrl($request_url);
+        }
+
         //Console或浏览器url里的module/action都在get里传递
         $module = Dang_Mvc_Request::instance()->getParamGet("module", "www");
         $controller = Dang_Mvc_Request::instance()->getParamGet("controller", "test");

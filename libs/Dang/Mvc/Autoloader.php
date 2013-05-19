@@ -14,12 +14,12 @@
 class Dang_Mvc_Autoloader
 {
     private $_namespace = array();
-    
+
     public function register()
     {
         spl_autoload_register(array($this, "load"));
         return $this;
-        
+
     }
 
     /*
@@ -31,9 +31,9 @@ class Dang_Mvc_Autoloader
     {
         $this->_namespace[strtolower($namespace)] = $path;
         return $this;
-        
+
     }
-    
+
     /*
      * 根据命名空间加载相应的include path
      */
@@ -56,12 +56,12 @@ class Dang_Mvc_Autoloader
         if(key_exists($namespace, $this->_namespace)){
             $path = $this->_namespace[$namespace];
         }
-        
+
         $filename = realpath($path)."/". preg_replace('/[_\\\]/', DIRECTORY_SEPARATOR, $className) . '.php';
         if(!file_exists($filename)){
             throw new Exception("File: ".$filename." not found!");
         }
-        
+
         return include $filename;
     }
 }

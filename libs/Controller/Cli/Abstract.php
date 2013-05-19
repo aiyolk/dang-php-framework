@@ -18,7 +18,10 @@ abstract class Controller_Cli_Abstract extends Dang_Mvc_AbstractController
     {
         parent::preDispatch();
 
-        $argv = $_SERVER['argv'];
+        $argv = array();
+        if(isset($_SERVER['argv'])){
+            $argv = $_SERVER['argv'];
+        }
 
         if(!$argv){
             exit("This script just run on console.\n");
@@ -29,7 +32,7 @@ abstract class Controller_Cli_Abstract extends Dang_Mvc_AbstractController
         if(count($output)>1){
             exit("This script is running! so exit.\n");
         }
-        
+
     }
 
 }

@@ -54,6 +54,7 @@ class Dmemcached
             $expiration = $config->memcached->expirationDefault;
         }
 
+        $expiration = time() + $expiration;
         if (!$memc->set($normalizedKey, $value, $expiration)) {
             return false;
         }

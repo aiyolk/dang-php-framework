@@ -12,7 +12,7 @@ class Dang_Mvc_View_HelperManager
         'partial'             => 'Dang_Mvc_View_Helper_Partial',
         'serverUrl'           => 'Dang_Mvc_View_Helper_ServerUrl',
     );
-    
+
     protected static $_instance;
 
     protected $_services = array();
@@ -32,11 +32,11 @@ class Dang_Mvc_View_HelperManager
     public function __construct()
     {
     }
-    
-    public function get($name)
+
+    public function getInvoke($name)
     {
         if(!array_key_exists($name, $this->_invokableClasses)){
-            exit("View helper '$name' not found!");
+            throw new Exception("View helper '$name' not found!");
         }
 
         if(!isset($this->_services[$name])){
@@ -46,6 +46,14 @@ class Dang_Mvc_View_HelperManager
         }
 
         return $this->_services[$name];
+    }
+
+    public function getHelper($name, $argv = array())
+    {
+        $viewHelper = $this->getInvoke($name);
+        $serverUrl = call_user_func_array($viewHelper, $argv);
+
+        return $serverUrl;
     }
 
 }

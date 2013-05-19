@@ -22,6 +22,7 @@ abstract class Dang_Mvc_AbstractController
     public function notFoundAction()
     {
         $action = Dang_Mvc_Param::instance()->getAction();
+        header("HTTP/1.0 404 Not Found");
         exit("Action: \"{$action}\" not found!\n");
     }
 

@@ -84,7 +84,7 @@ class Dang_Mvc_PhpRenderer
     public function __call($method, $argv)
     {
         if (!isset($this->__viewHelpers[$method])) {
-            $this->__viewHelpers[$method] = Dang_Mvc_View_HelperManager::instance()->get($method);
+            $this->__viewHelpers[$method] = Dang_Mvc_View_HelperManager::instance()->getInvoke($method);
         }
         if (is_callable($this->__viewHelpers[$method])) {
             return call_user_func_array($this->__viewHelpers[$method], $argv);

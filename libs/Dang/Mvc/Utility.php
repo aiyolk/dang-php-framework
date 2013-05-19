@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 工具包
+ * Mvc 工具包
  *
  * @author wuqingcheng
  * @date 2013.04.22
@@ -18,6 +18,16 @@ class Dang_Mvc_Utility
              "\\1",
              $param);
 
+        return $param;
+    }
+
+    static function paramMvcToUrl($param)
+    {
+        $param = preg_replace("/([a-z0-9]{1})([A-Z]){1}/e",
+             "strtolower('\\1-\\2')",
+             $param);
+        $param = strtolower($param);
+        
         return $param;
     }
 

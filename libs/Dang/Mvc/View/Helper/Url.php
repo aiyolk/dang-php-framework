@@ -9,8 +9,9 @@ class Dang_Mvc_View_Helper_Url
 {
     public function _invoke($params)
     {
-        $str = Dang_Mvc_Utility::appendParams($params);
-        return "/?".$str;
+        $router = new \Dang\Mvc\Router();
+        $str = $router->toUrl($params);
+        return $str;
     }
-    
+
 }
