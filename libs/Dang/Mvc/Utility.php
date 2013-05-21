@@ -33,6 +33,8 @@ class Dang_Mvc_Utility
 
     /*
      * 将数组转换成url字符串
+     * 
+     * 参考：http_build_query
      */
     static function appendParams($array, $parent='')
     {
