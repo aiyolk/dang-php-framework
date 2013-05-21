@@ -13,7 +13,8 @@
 
 class Dang_Mvc_Autoloader
 {
-    private $_namespace = array();
+    private $_path = array();
+    private $_extension = array();
 
     public function register()
     {
@@ -29,7 +30,17 @@ class Dang_Mvc_Autoloader
      */
     public function add($namespace, $path)
     {
-        $this->_namespace[strtolower($namespace)] = $path;
+        $this->_path[strtolower($namespace)] = $path;
+        return $this;
+
+    }
+    
+    /*
+     * 添加特定类的扩展名
+     */
+    public function ext($namespace, $ext)
+    {
+        $this->_extension[strtolower($namespace)] = $ext;
         return $this;
 
     }
@@ -44,6 +55,7 @@ class Dang_Mvc_Autoloader
         }
 
         $path = "./libs/";
+        $extension = "php";
 
         preg_match("/^[\\\]?([a-z]+)([_\\\])/si", $className, $m);
         if(!$m){
@@ -53,11 +65,16 @@ class Dang_Mvc_Autoloader
         $separator = $m[2];
 
         //查看定义的namespace 和 path
-        if(key_exists($namespace, $this->_namespace)){
-            $path = $this->_namespace[$namespace];
+        if(key_exists($namespace, $this->_path)){
+            $path = $this->_path[$namespace];
         }
 
-        $filename = realpath($path)."/". preg_replace('/[_\\\]/', DIRECTORY_SEPARATOR, $className) . '.php';
+        //查看定义的namespace 和 entension
+        if(key_exists($namespace, $this->_extension)){
+            $extension = $this->_extension[$namespace];
+        }
+
+        $filename = realpath($path)."/". preg_replace('/[_\\\]/', DIRECTORY_SEPARATOR, $className) . '.'. $extension;
         if(!file_exists($filename)){
             throw new Exception("File: ".$filename." not found!");
         }
