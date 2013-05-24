@@ -25,8 +25,8 @@ class Quick
             return self::$_phpmailer;
         }
         
-        require './Phpmailer/class.phpmailer.php';
-        self::$_phpmailer = new PHPMailer();
+        require 'Phpmailer/class.phpmailer.php';
+        self::$_phpmailer = new \PHPMailer();
         
         return self::$_phpmailer;
     }
