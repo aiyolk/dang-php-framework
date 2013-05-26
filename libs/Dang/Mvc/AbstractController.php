@@ -46,7 +46,12 @@ abstract class Dang_Mvc_AbstractController
             $method = 'notFoundAction';
         }
 
-        return $this->$method();
+        $speeder = Dang_Mvc_ServiceManager::instance()->get("speeder");
+        $speeder->start();
+        $result = $this->$method();
+        $speeder->end();
+        
+        return $result;
     }
 
     /*

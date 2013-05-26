@@ -13,7 +13,8 @@ class Dang_Mvc_ServiceManager
 
     protected $_services = array();
     protected $_invokableClasses = array(
-        'layoutModel' => 'Dang_Mvc_View_Model_HtmlModel',
+        'layoutModel' => 'Dang_Mvc_View_Model_HtmlModel', //布局模型
+        'speeder' => '\Dang\Speeder', //全局速度计算器
     );
 
     /*

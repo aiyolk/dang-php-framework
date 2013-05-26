@@ -11,6 +11,7 @@ class Dang_Mvc_View_HelperManager
         'paginationControl'   => 'Dang_Mvc_View_Helper_PaginationControl',
         'partial'             => 'Dang_Mvc_View_Helper_Partial',
         'serverUrl'           => 'Dang_Mvc_View_Helper_ServerUrl',
+        'totalTime'           => 'Dang_Mvc_View_Helper_TotalTime',
     );
 
     protected static $_instance;

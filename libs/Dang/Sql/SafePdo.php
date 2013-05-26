@@ -34,7 +34,7 @@ Class SafePdo extends \PDO
         return $PDOStatement;
 	}
 
-    function executeInsert($table, $data)
+    function executeInsert($table, $data, $action = "INSERT")
 	{
 		reset($data);
 
@@ -45,7 +45,7 @@ Class SafePdo extends \PDO
             $query_2 .= $space."'".$val."'";
             $space=', ';
         }
-        $query = 'INSERT INTO `' . $table . '` ('.$query_1.') VALUES ('.$query_2.')';
+        $query = $action.' INTO `' . $table . '` ('.$query_1.') VALUES ('.$query_2.')';
 
         $result = $this->exec($query);
 
@@ -92,9 +92,18 @@ Class SafePdo extends \PDO
 		return $result;
 	}
 
+    function insert_id()
+    {
+        print $this->lastInsertId();
+    }
+
     function debug($debug)
 	{
         $this->_debug = $debug;
+    }
+
+    function close()
+	{
     }
 }
 

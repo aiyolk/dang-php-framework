@@ -35,8 +35,6 @@ class Quick
 
     public static function mongo($name)
     {
-        $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
-
         $config = \Dang\Quick::config("mongo");
 
         if($config->{$name}->replicaSet){
@@ -46,6 +44,15 @@ class Quick
         }
 
         return $mongo;
+    }
+
+    public static function couchbase($bucket)
+    {
+        $config = \Dang\Quick::config("couchbase");
+
+        $cb = new \Couchbase($config->{$bucket}, "", "", $bucket);
+
+        return $cb;
     }
 
     public static function config($name)
