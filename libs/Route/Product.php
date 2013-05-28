@@ -1,10 +1,11 @@
 <?php
 
 /*
- * 基本路由
- * 提供对形如 http://www.site.com/www/test/test/?param=value 的url的创建和解析
+ * 路由示例
+ * 
+ * 提供对形如 http://www.site.com/product/88888.html 的url的创建和解析
  * @author wuqingcheng
- * @date 2013.05.28
+ * @add 2013.05.28
  * @email wqc200@gmail.com
  */
 
