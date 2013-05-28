@@ -1,9 +1,10 @@
 <?php
 
 /*
- * mvc 参数保存器
+ * 路由控制器
+ * 
  * @author wuqingcheng
- * @date 2013.04.22
+ * @date 2013.05.22
  * @email wqc200@gmail.com
  */
 

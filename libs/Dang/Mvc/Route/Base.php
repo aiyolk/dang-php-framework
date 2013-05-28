@@ -1,9 +1,10 @@
 <?php
 
 /*
- * mvc 参数保存器
+ * 基本路由
+ * 提供对形如 http://www.site.com/www/test/test/?param=value 的url的创建和解析
  * @author wuqingcheng
- * @date 2013.04.22
+ * @date 2013.05.28
  * @email wqc200@gmail.com
  */
 
@@ -70,3 +71,5 @@ class Base
     }
 
 }
+
+?>
