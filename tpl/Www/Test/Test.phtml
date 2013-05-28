@@ -23,3 +23,8 @@ $this->headTitle()->append("test")->append("category");
 <h3>这里是分页</h3>
 <?php echo $this->paginationControl($this->paginator, "Www/Pagination", $this->requestParams);?>
 </div>
+
+<div class="container">
+<h3>这里是url rewrite</h3>
+<?php echo $this->url(array('productId'=>2222), 'product');?>
+</div>

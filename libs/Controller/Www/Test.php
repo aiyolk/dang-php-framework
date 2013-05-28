@@ -129,6 +129,12 @@ class Controller_Www_Test  extends Controller_Www_Abstract
     {
         print_r($_SERVER);
     }
+    
+    public function ProductAction()
+    {
+        $productId = Dang_Mvc_Request::instance()->getParamGet("productId", "888");
+        echo $productId;
+    }
         
 }
 

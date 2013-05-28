@@ -22,15 +22,24 @@ class Dang_Mvc_Route_Default
             $param = (array) $param;
         }
 
-        if(!isset($param['module'])){
-            $param['module'] = \Dang_Mvc_Param::instance()->getModule();
+        if(isset($param['module'])){
+            $module = $param['module'];
+        }else{
+            $module = \Dang_Mvc_Param::instance()->getModule();
         }
-        if(!isset($param['controller'])){
-            $param['controller'] = \Dang_Mvc_Param::instance()->getController();
+        $param['module'] = \Dang_Mvc_Utility::paramMvcToUrl($module);
+        if(isset($param['controller'])){
+            $controller = $param['controller'];
+        }else{
+            $controller = \Dang_Mvc_Param::instance()->getController();
         }
-        if(!isset($param['action'])){
-            $param['action'] = \Dang_Mvc_Param::instance()->getAction();
+        $param['controller'] = \Dang_Mvc_Utility::paramMvcToUrl($controller);
+        if(isset($param['action'])){
+            $action = $param['action'];
+        }else{
+            $action = \Dang_Mvc_Param::instance()->getAction();
         }
+        $param['action'] = \Dang_Mvc_Utility::paramMvcToUrl($action);
 
         $serverUrl = \Dang_Mvc_View_HelperManager::instance()->getHelper("serverUrl");
 
