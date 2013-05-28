@@ -10,7 +10,7 @@
 
 namespace Route;
 
-class Product
+class Product implements \Dang_Mvc_Route_Interface
 {
     public function __construct()
     {

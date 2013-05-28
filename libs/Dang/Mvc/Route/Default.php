@@ -9,7 +9,7 @@
  * @email wqc200@gmail.com
  */
 
-class Dang_Mvc_Route_Default
+class Dang_Mvc_Route_Default implements \Dang_Mvc_Route_Interface
 {
     public function __construct()
     {

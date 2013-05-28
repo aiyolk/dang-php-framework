@@ -10,7 +10,7 @@
 
 namespace Dang\Mvc\Route;
 
-class Base
+class Base implements \Dang_Mvc_Route_Interface
 {
     public function __construct()
     {
