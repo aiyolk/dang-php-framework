@@ -23,7 +23,12 @@ class Router
         }
         
         $config = \Dang\Quick::config("route");
-        $objName = $config->toUrl->{$route};
+        if(isset($config->toUrl->{$route})){
+            $objName = $config->toUrl->{$route};
+        }else{
+            $objName = "\Dang_Mvc_Route_Default";
+        }
+        
         $router = new $objName();
         return $router->toUrl($param);
     }
@@ -31,7 +36,7 @@ class Router
     public function fromUrl($url)
     {
         $config = \Dang\Quick::config("route");
-        foreach($config->toArray() as $route=>$rules)
+        foreach($config->fromUrl->toArray() as $route=>$rules)
         {
             for($i=0;$i<count($rules);$i++)
             {

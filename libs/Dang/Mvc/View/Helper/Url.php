@@ -7,10 +7,10 @@
 
 class Dang_Mvc_View_Helper_Url
 {
-    public function _invoke($params)
+    public function _invoke($params, $route = 'default')
     {
         $router = new \Dang\Mvc\Router();
-        $str = $router->toUrl($params);
+        $str = $router->toUrl($params, $route);
         return $str;
     }
 

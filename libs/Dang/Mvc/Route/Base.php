@@ -57,7 +57,7 @@ class Base
     public function fromUrl($url)
     {
         $request_url = $url;
-        if(preg_match("/\/([a-z0-9-_]+)\/([a-z0-9-_]+)\/([a-z0-9-_]+)\/(\?.*?)?$/si", $request_url, $match)){
+        if(preg_match("/\/([a-z0-9-_]+)\/([a-z0-9-_]+)\/([a-z0-9-_]+)[\/]?(\?.*?)?$/si", $request_url, $match)){
             $module = $match['1'];
             $controller = $match['2'];
             $action = $match['3'];
