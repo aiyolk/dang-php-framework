@@ -19,6 +19,7 @@ $autoloader = new Dang_Mvc_Autoloader();
  * 则zend的路径为：/opt/www/zend-framework-2/Zend/Config/Config.php
  */
 $autoloader->add("zend", "/opt/www/zend-framework-2");
+$autoloader->add("route", "./libs");
 $autoloader->register();
 
 //初始化入口
