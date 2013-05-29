@@ -12,7 +12,7 @@ class Dmemcached
     {
         $config = \Dang\Quick::config("cache");
 
-        $memcached = new MemcachedResource('memcached_pool');
+        $memcached = new MemcachedResource();
         $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
         $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
         $memcached->setOption(MemcachedResource::OPT_LIBKETAMA_COMPATIBLE, true);

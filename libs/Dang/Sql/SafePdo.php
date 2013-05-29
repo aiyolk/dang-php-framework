@@ -34,6 +34,15 @@ Class SafePdo extends \PDO
         return $PDOStatement;
 	}
 
+    function exec($sql)
+	{
+        \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
+
+        $result = parent::exec($sql);
+
+        return $result;
+	}
+
     function executeInsert($table, $data, $action = "INSERT")
 	{
 		reset($data);
