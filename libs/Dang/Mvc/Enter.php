@@ -34,13 +34,11 @@ class Dang_Mvc_Enter
             }elseif($mobileDetect->isTablet()){
                 $device = "tablet";
             }else{
-                $config = \Dang\Quick::config("base");
-                $device = $config->defaultDevice;
+                $device = "pc";
             }
         }
         $device = Dang_Mvc_Utility::paramUrlToMvc($device);
-        $this->deviceName = ucfirst($device);
-        Dang_Mvc_Param::instance()->setDevice($this->deviceName);
+        Dang_Mvc_Param::instance()->setDevice($device);
         
         $controller = Dang_Mvc_Request::instance()->getParamGet("controller", "test");
         $controller = Dang_Mvc_Utility::paramUrlToMvc($controller);

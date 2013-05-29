@@ -17,7 +17,8 @@ class Dang_Mvc_Utility
         $param = preg_replace("/[_-]([0-9]){1}/e",
              "\\1",
              $param);
-
+        $param = ucfirst($param);
+        
         return $param;
     }
 

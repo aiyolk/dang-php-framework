@@ -109,10 +109,19 @@ class Dang_Mvc_Template
             return $this->_device;
         }
         
-        $config = \Dang\Quick::config("base");
-        $defaultDevice = $config->defaultDevice;
-        $this->_device = $defaultDevice;
+        $this->_device = Dang_Mvc_Param::instance()->getDevice();
         return $this->_device;
+    }
+    
+    public function getDefaultDevice()
+    {
+        $defaultDevice = "pc";
+        $config = \Dang\Quick::config("base");
+        if(isset($config->defaultDevice)){
+            $defaultDevice = $config->defaultDevice;
+        }
+        $defaultDevice = ucfirst($defaultDevice);
+        return $defaultDevice;
     }
     
     public function getController()
@@ -171,11 +180,7 @@ class Dang_Mvc_Template
             return $filename;
         }
         
-        $defaultDevice = "pc";
-        $config = \Dang\Quick::config("base");
-        if(isset($config->defaultDevice)){
-            $defaultDevice = $config->defaultDevice;
-        }
+        $defaultDevice = $this->getDefaultDevice();
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
@@ -195,18 +200,14 @@ class Dang_Mvc_Template
             return $filename;
         }
         
-        $defaultDevice = "pc";
-        $config = \Dang\Quick::config("base");
-        if(isset($config->defaultDevice)){
-            $defaultDevice = $config->defaultDevice;
-        }
+        $defaultDevice = $this->getDefaultDevice();
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
         
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
         if(!file_exists($filename)){
-            throw new Exception($filename."(Use default device) not found!");
+            throw new Exception("Action file: ".$filename."(under default device) not found!");
         }
         
         return $filename;
@@ -219,18 +220,14 @@ class Dang_Mvc_Template
             return $filename;
         }
         
-        $defaultDevice = "pc";
-        $config = \Dang\Quick::config("base");
-        if(isset($config->defaultDevice)){
-            $defaultDevice = $config->defaultDevice;
-        }
+        $defaultDevice = $this->getDefaultDevice();
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
         
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getLayout(). ".".$this->getExtension();
         if(!file_exists($filename)){
-            throw new Exception($filename." Under default device not found!");
+            throw new Exception("Layout file: ".$filename."(under default device) not found!");
         }
         
         return $filename;
