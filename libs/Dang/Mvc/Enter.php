@@ -24,7 +24,7 @@ class Dang_Mvc_Enter
         $module = Dang_Mvc_Utility::paramUrlToMvc($module);
         $this->moduleName = ucfirst($module);
         Dang_Mvc_Param::instance()->setModule($this->moduleName);
-        
+
         //设备类型
         $device = Dang_Mvc_Request::instance()->getParamGet("device");
         if(!$device){
@@ -39,12 +39,12 @@ class Dang_Mvc_Enter
         }
         $device = Dang_Mvc_Utility::paramUrlToMvc($device);
         Dang_Mvc_Param::instance()->setDevice($device);
-        
+
         $controller = Dang_Mvc_Request::instance()->getParamGet("controller", "test");
         $controller = Dang_Mvc_Utility::paramUrlToMvc($controller);
         $this->controllerName = ucfirst($controller);
         Dang_Mvc_Param::instance()->setController($this->controllerName);
-        
+
         $action = Dang_Mvc_Request::instance()->getParamGet("action", "test");
         $action = Dang_Mvc_Utility::paramUrlToMvc($action);
         $this->actionName = ucfirst($action);
@@ -84,15 +84,9 @@ class Dang_Mvc_Enter
             echo $content;
 
         }elseif($result instanceof Dang_Mvc_View_Model_TxtModel){
-            $module = Dang_Mvc_Template::instance()->getModule();
-            $controller = Dang_Mvc_Template::instance()->getController();
-            $action = Dang_Mvc_Template::instance()->getAction();
-
-            //获取method里的html代码
             $txtModel = $result;
-            $path = "./tpl/".$module."/".$controller;
-            $txtModel->setTemplatePath($path);
-            $txtModel->setTemplateName($action);
+            $filename = Dang_Mvc_Template::instance()->setExtension("ptxt")->getActionFilename();
+            $txtModel->setTemplate($filename);
             $phpRenderer = new Dang_Mvc_PhpRenderer();
             $content = $phpRenderer->renderModel($txtModel);
             echo $content;

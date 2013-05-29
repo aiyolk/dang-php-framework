@@ -55,6 +55,14 @@ class Quick
         return $cb;
     }
 
+    public static function ttserver($name)
+    {
+        $config = \Dang\Quick::config("ttserver");
+        $ttserver = new \TokyoTyrant($config->{$name}->host, $config->{$name}->port);
+
+        return $ttserver;
+    }
+
     public static function config($name)
     {
         if (isset(self::$_config[$name])) {

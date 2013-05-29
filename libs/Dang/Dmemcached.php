@@ -45,16 +45,10 @@ class Dmemcached
         return $result;
     }
 
-    public function setItem(& $normalizedKey, & $value, $expiration=null)
+    public function setItem(& $normalizedKey, & $value, $expiration = 0)
     {
         $memc = $this->memcached;
 
-        if($expiration == null){
-            $config = \Dang\Quick::config("cache");
-            $expiration = $config->memcached->expirationDefault;
-        }
-
-        $expiration = time() + $expiration;
         if (!$memc->set($normalizedKey, $value, $expiration)) {
             return false;
         }
