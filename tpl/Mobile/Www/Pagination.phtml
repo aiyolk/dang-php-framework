@@ -1,0 +1,31 @@
+<div class="pagination pagination-large">
+    <ul>
+        <?php if($this->current!=$this->first):?>
+        <li><a href='<?php echo $this->url(array_merge(
+        $this->requestParams, array('page' => $this->first))); ?>'>第一页</a></li>
+        <?php else:?>
+        <li class="disabled"><span>第一页</span></li>
+        <?php endif; ?>
+        <!-- Previous page link -->
+        <?php if ($this->previous){ ?>
+        <li><a href="<?php echo $this->url(array_merge(
+        $this->requestParams, array('page' => $this->previous))); ?>">前一页</a></li>
+        <?php } else { ?>
+        <li class="disabled"><span>前一页</span></li>
+        <?php } ?>
+        <!-- Numbered page links -->
+        <!-- Next page link -->
+        <?php if ($this->next){ ?>
+        <li><a href="<?php echo $this->url(
+        array_merge($this->requestParams, array('page' => $this->next))); ?>">后一页</a></li>
+        <?php } else { ?>
+        <li class="disabled"><span>后一页</span></li>
+        <?php } ?>
+        <?php if($this->current!=$this->last):?>
+        <li><a href='<?php echo $this->url(array_merge(
+        $this->requestParams, array('page' => $this->last))); ?>'>最后一页</a></li>
+        <?php else:?>
+        <li class="disabled"><span>最后一页</span></li>
+        <?php endif; ?>
+    </ul>
+</div>
