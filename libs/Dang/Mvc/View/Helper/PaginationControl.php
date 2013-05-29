@@ -8,10 +8,11 @@
  */
 class Dang_Mvc_View_Helper_PaginationControl
 {
-    public function _invoke(Dang_Paginator_Paginator $paginator, $filename, $requestParams)
+    public function _invoke(Dang_Paginator_Paginator $paginator, $filename, $requestParams, $urlRoute = 'default')
     {
         $pages = get_object_vars($paginator->getPages());
         $pages['requestParams'] = $requestParams;
+        $pages['urlRoute'] = $urlRoute;
         $phpRenderer = new Dang_Mvc_PhpRenderer();
         return $phpRenderer->renderPhtml($filename, $pages);
     }

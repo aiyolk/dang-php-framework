@@ -8,7 +8,7 @@
  */
 
 class Dang_Paginator_Paginator
-{  
+{
     /*
      * 每页默认显示的item个数
      */
@@ -25,8 +25,11 @@ class Dang_Paginator_Paginator
      * 当前页
      */
     protected $currentPageNumber = 1;
-    
-    public function __construct() 
+
+    protected $totalItemCount;
+
+
+    public function __construct()
     {
     }
 
@@ -41,18 +44,18 @@ class Dang_Paginator_Paginator
 
         return $this;
     }
-    
+
     public function getTotalItemCount()
     {
         return $this->totalItemCount;
     }
-    
+
     public function setTotalItemCount($totalItemCount)
     {
         $this->totalItemCount = $totalItemCount;
         return $this;
     }
-    
+
     public function getItemCountPerPage()
     {
         if (empty($this->itemCountPerPage)) {
@@ -68,12 +71,12 @@ class Dang_Paginator_Paginator
         if ($this->itemCountPerPage < 1) {
             $this->itemCountPerPage = $this->getTotalItemCount();
         }
-        
+
         $this->getPageCount();
-        
+
         return $this;
     }
-    
+
     public function getPageCount()
     {
         if (!$this->pageCount) {
@@ -82,7 +85,7 @@ class Dang_Paginator_Paginator
 
         return $this->pageCount;
     }
-    
+
     public function getPages()
     {
         $pageCount         = $this->getPageCount();
@@ -94,7 +97,7 @@ class Dang_Paginator_Paginator
         $pages->first            = 1;
         $pages->current          = $currentPageNumber;
         $pages->last             = $pageCount;
-        
+
         // Previous and next
         if ($currentPageNumber - 1 > 0) {
             $pages->previous = $currentPageNumber - 1;
@@ -112,10 +115,10 @@ class Dang_Paginator_Paginator
         $pages->pagesInRange     = $this->getScrollingStylePages();
         $pages->firstPageInRange = min($pages->pagesInRange);
         $pages->lastPageInRange  = max($pages->pagesInRange);
-        
+
         return $pages;
     }
-    
+
     public function getScrollingStylePages()
     {
         $pageCount  = $this->getPageCount();
@@ -157,7 +160,7 @@ class Dang_Paginator_Paginator
 
         return $this->getPagesInRange($lowerBound, $upperBound);
     }
-    
+
     public function getPagesInRange($lowerBound, $upperBound)
     {
         $lowerBound = $this->normalizePageNumber($lowerBound);
@@ -171,7 +174,7 @@ class Dang_Paginator_Paginator
 
         return $pages;
     }
-    
+
     public function normalizePageNumber($pageNumber)
     {
         $pageNumber = (integer) $pageNumber;
@@ -188,18 +191,18 @@ class Dang_Paginator_Paginator
 
         return $pageNumber;
     }
-    
+
     public function getCurrentPageNumber()
     {
         return $this->normalizePageNumber($this->currentPageNumber);
     }
-    
+
     public function setCurrentPageNumber($pageNumber)
     {
         $this->currentPageNumber = (integer) $pageNumber;
 
         return $this;
     }
-}  
+}
 
 ?>
