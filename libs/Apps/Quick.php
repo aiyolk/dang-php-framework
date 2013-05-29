@@ -12,6 +12,7 @@ namespace Apps;
 class Quick
 {
     private static $_phpmailer;
+    private static $_mobileDetect;
     
     /*
      * phpmailer调用器
@@ -30,6 +31,25 @@ class Quick
         
         return self::$_phpmailer;
     }
+    
+    /*
+     * mobile detect调用器
+     * 使用方法参见 ./Apps/MobileDetect/readme.txt
+     * 
+     * @return object self::$_mobileDetect MobileDetect对象
+     */
+    public static function mobileDetect()
+    {
+        if (isset(self::$_mobileDetect)) {
+            return self::$_mobileDetect;
+        }
+        
+        require 'MobileDetect/Mobile_Detect.php';
+        self::$_mobileDetect = new \Mobile_Detect();
+        
+        return self::$_mobileDetect;
+    }
+    
 }
 
 ?>

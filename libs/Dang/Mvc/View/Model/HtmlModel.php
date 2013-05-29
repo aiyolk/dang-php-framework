@@ -10,51 +10,19 @@
 class Dang_Mvc_View_Model_HtmlModel extends Dang_Mvc_View_Model_AbstractModel
 {
     protected  $template;
-    protected  $templatePath;
-    protected  $templateName;
-    protected  $templateExtention;
 
-    public function setTemplatePath($path)
+    public function setTemplate($filname)
     {
-        $this->templatePath = (string)$path;
-        return $this;
-    }
-
-    public function setTemplateName($name)
-    {
-        $this->templateName = (string)$name;
-        return $this;
-    }
-
-    public function setTemplateExtension($ext)
-    {
-        $this->templateExtension = (string)$ext;
-        return $this;
-    }
-
-    public function getTemplateExtension()
-    {
-        if($this->templateExtension){
-            return $this->templateExtension;
-        }
-
-        return "phtml";
-    }
-
-    public function setTemplate($path, $name)
-    {
-        $this->template = (string)$path. "/". (string)$name. ".".$this->getTemplateExtension();
+        $this->template = (string)$filname;
         return $this;
     }
 
     public function getTemplate()
     {
-        if(isset($this->template)){
-            return $this->template;
+        if(!isset($this->template)){
+            throw new Exception("Please set the template!");
         }
-
-        $this->template = (string)$this->templatePath. "/". ucfirst($this->templateName). ".".$this->getTemplateExtension();
-
+        
         return $this->template;
     }
 }

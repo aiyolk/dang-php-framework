@@ -11,6 +11,7 @@ class Dang_Mvc_Param
     protected static $_instance = null;
 
     protected $_module;
+    protected $_device;
     protected $_controller;
     protected $_action;
 
@@ -36,6 +37,18 @@ class Dang_Mvc_Param
         $this->_module = $name;
         return $this;
     }
+    
+    public function getDevice()
+    {
+        return $this->_device;
+    }
+
+    public function setDevice($name)
+    {
+        $this->_device = $name;
+        return $this;
+    }
+    
     public function getController()
     {
         return $this->_controller;

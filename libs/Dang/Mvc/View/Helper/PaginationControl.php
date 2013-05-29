@@ -13,7 +13,8 @@ class Dang_Mvc_View_Helper_PaginationControl
         $pages = get_object_vars($paginator->getPages());
         $pages['requestParams'] = $requestParams;
         $pages['urlRoute'] = $urlRoute;
-        $phpRenderer = new Dang_Mvc_PhpRenderer();
-        return $phpRenderer->renderPhtml($filename, $pages);
+        
+        $argv = array($filename, $pages);
+        return \Dang_Mvc_View_HelperManager::instance()->getHelper("partial", $argv);
     }
 }

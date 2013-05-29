@@ -20,23 +20,36 @@ class Dang_Mvc_Enter
             $router->fromUrl($request_url);
         }
 
-        //Console或浏览器url里的module/action都在get里传递
         $module = Dang_Mvc_Request::instance()->getParamGet("module", "www");
-        $controller = Dang_Mvc_Request::instance()->getParamGet("controller", "test");
-        $action = Dang_Mvc_Request::instance()->getParamGet("action", "test");
-
         $module = Dang_Mvc_Utility::paramUrlToMvc($module);
         $this->moduleName = ucfirst($module);
-        //组合控制器名称
+        Dang_Mvc_Param::instance()->setModule($this->moduleName);
+        
+        //设备类型
+        $device = Dang_Mvc_Request::instance()->getParamGet("device");
+        if(!$device){
+            $mobileDetect = \Apps\Quick::mobileDetect();
+            if($mobileDetect->isMobile()){
+                $device = "mobile";
+            }elseif($mobileDetect->isTablet()){
+                $device = "tablet";
+            }else{
+                $config = \Dang\Quick::config("base");
+                $device = $config->defaultDevice;
+            }
+        }
+        $device = Dang_Mvc_Utility::paramUrlToMvc($device);
+        $this->deviceName = ucfirst($device);
+        Dang_Mvc_Param::instance()->setDevice($this->deviceName);
+        
+        $controller = Dang_Mvc_Request::instance()->getParamGet("controller", "test");
         $controller = Dang_Mvc_Utility::paramUrlToMvc($controller);
         $this->controllerName = ucfirst($controller);
-        //组合控制器方法名
+        Dang_Mvc_Param::instance()->setController($this->controllerName);
+        
+        $action = Dang_Mvc_Request::instance()->getParamGet("action", "test");
         $action = Dang_Mvc_Utility::paramUrlToMvc($action);
         $this->actionName = ucfirst($action);
-
-        //将mvc参数传递给Mvc_Param
-        Dang_Mvc_Param::instance()->setModule($this->moduleName);
-        Dang_Mvc_Param::instance()->setController($this->controllerName);
         Dang_Mvc_Param::instance()->setAction($this->actionName);
     }
 
@@ -90,21 +103,14 @@ class Dang_Mvc_Enter
             echo json_encode($result->getVariables());
 
         }elseif($result instanceof Dang_Mvc_View_Model_HtmlModel){
-            $layout = Dang_Mvc_Template::instance()->getLayout();
-            $module = Dang_Mvc_Template::instance()->getModule();
-            $controller = Dang_Mvc_Template::instance()->getController();
-            $action = Dang_Mvc_Template::instance()->getAction();
-
             $actionModel = $result;
-            $path = "./tpl/".$module."/".$controller;
-            $actionModel->setTemplatePath($path);
-            $actionModel->setTemplateName($action);
+            $filename = Dang_Mvc_Template::instance()->getActionFilename();
+            $actionModel->setTemplate($filename);
             $actionModel->setCaptureTo('content');
 
             $layoutModel = Dang_Mvc_ServiceManager::instance()->get("layoutModel");
-            $path = "./tpl/".$module;
-            $layoutModel->setTemplatePath($path);
-            $layoutModel->setTemplateName($layout);
+            $filename = Dang_Mvc_Template::instance()->getLayoutFilename();
+            $layoutModel->setTemplate($filename);
             $layoutModel->addChild($actionModel, 'content');
             $view = new Dang_Mvc_View_View();
             $content = $view->render($layoutModel);

@@ -13,8 +13,10 @@ class Dang_Mvc_View_Helper_Partial
             return $this;
         }
 
-        $phpRenderer = new Dang_Mvc_PhpRenderer();
+        Dang_Mvc_Template::instance()->setPartial($filename);
+        $filename = Dang_Mvc_Template::instance()->getPartialFilename();
         
+        $phpRenderer = new Dang_Mvc_PhpRenderer();
         return $phpRenderer->renderPhtml($filename, $values);
     }
     

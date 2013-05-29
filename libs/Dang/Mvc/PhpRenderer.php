@@ -54,17 +54,8 @@ class Dang_Mvc_PhpRenderer
     {
         $this->setVars($values);
 
-        //获取扩展名
-        $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        if($extension == ""){
-            $extension = "phtml";
-        }
-
-        //组织模板
-        $template = realpath("./tpl")."/".$filename. '.'.$extension;
-
         ob_start();
-        include $template;
+        include $filename;
         $content = ob_get_clean();
 
         return $content;

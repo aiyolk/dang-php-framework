@@ -11,11 +11,14 @@ class Dang_Mvc_Template
 {
     protected static $_instance = null;
 
-    protected $_layoutModel;
+    protected $_path;
     protected $_layout;
     protected $_module;
+    protected $_device;
     protected $_controller;
     protected $_action;
+    protected $_extension;
+    protected $_partial;
 
     /*
      * 单例模式入口
@@ -29,21 +32,61 @@ class Dang_Mvc_Template
         return self::$_instance;
     }
 
-    public function getLayout()
+    public function setPath($path)
     {
-        if(!isset($this->_layout)){
-            $this->_layout = "Layout";
+        $this->_path = (string)$path;
+        return $this;
+    }
+    
+    public function getPath()
+    {
+        if(isset($this->_path)){
+            return $this->_path;
+        }
+        
+        $tplDir = "./tpl";
+        $config = \Dang\Quick::config("base");
+        if(isset($config->tplDir)){
+            $tplDir = $config->tplDir;
         }
 
-        return $this->_layout;
+        $this->_path = (string)$tplDir;
+        return $this->_path;
     }
-
+    
     public function setLayout($name)
     {
         $this->_layout = $name;
         return $this;
     }
 
+    public function getLayout()
+    {
+        if(isset($this->_layout)){
+            return $this->_layout;
+        }
+
+        $this->_layout = "Layout";
+        return $this->_layout;
+    }
+    
+    public function setPartial($name)
+    {
+        $this->_partial = $name;
+        return $this;
+    }
+
+    public function getPartial()
+    {
+        return $this->_partial;
+    }
+
+    public function setModule($name)
+    {
+        $this->_module = $name;
+        return $this;
+    }
+    
     public function getModule()
     {
         if(!isset($this->_module)){
@@ -54,11 +97,24 @@ class Dang_Mvc_Template
         return $this->_module;
     }
 
-    public function setModule($name)
+    public function setDevice($name)
     {
-        $this->_module = $name;
+        $this->_device = $name;
         return $this;
     }
+    
+    public function getDevice()
+    {
+        if(isset($this->_device)){
+            return $this->_device;
+        }
+        
+        $config = \Dang\Quick::config("base");
+        $defaultDevice = $config->defaultDevice;
+        $this->_device = $defaultDevice;
+        return $this->_device;
+    }
+    
     public function getController()
     {
         if(!isset($this->_controller)){
@@ -75,6 +131,12 @@ class Dang_Mvc_Template
         return $this;
     }
 
+    public function setAction($name)
+    {
+        $this->_action = $name;
+        return $this;
+    }
+    
     public function getAction()
     {
         if(!isset($this->_action)){
@@ -85,9 +147,92 @@ class Dang_Mvc_Template
         return $this->_action;
     }
 
-    public function setAction($name)
+    public function setExtension($ext)
     {
-        $this->_action = $name;
+        $this->_extension = (string)$ext;
         return $this;
+    }
+
+    public function getExtension()
+    {
+        if($this->_extension){
+            return $this->_extension;
+        }
+
+        $this->_extension = "phtml";
+        
+        return $this->_extension;
+    }
+    
+    public function getPartialFilename()
+    {
+        $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getPartial(). ".".$this->getExtension();
+        if(file_exists($filename)){
+            return $filename;
+        }
+        
+        $defaultDevice = "pc";
+        $config = \Dang\Quick::config("base");
+        if(isset($config->defaultDevice)){
+            $defaultDevice = $config->defaultDevice;
+        }
+        if($defaultDevice == $this->getDevice()){
+            throw new Exception($filename." not found!");
+        }
+        
+        $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getPartial(). ".".$this->getExtension();
+        if(!file_exists($filename)){
+            throw new Exception("Partial file: ".$filename."(under default device) not found!");
+        }
+        
+        return $filename;
+    }
+    
+    public function getActionFilename()
+    {
+        $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
+        if(file_exists($filename)){
+            return $filename;
+        }
+        
+        $defaultDevice = "pc";
+        $config = \Dang\Quick::config("base");
+        if(isset($config->defaultDevice)){
+            $defaultDevice = $config->defaultDevice;
+        }
+        if($defaultDevice == $this->getDevice()){
+            throw new Exception($filename." not found!");
+        }
+        
+        $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
+        if(!file_exists($filename)){
+            throw new Exception($filename."(Use default device) not found!");
+        }
+        
+        return $filename;
+    }
+    
+    public function getLayoutFilename()
+    {
+        $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getModule()."/".$this->getLayout(). ".".$this->getExtension();
+        if(file_exists($filename)){
+            return $filename;
+        }
+        
+        $defaultDevice = "pc";
+        $config = \Dang\Quick::config("base");
+        if(isset($config->defaultDevice)){
+            $defaultDevice = $config->defaultDevice;
+        }
+        if($defaultDevice == $this->getDevice()){
+            throw new Exception($filename." not found!");
+        }
+        
+        $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getLayout(). ".".$this->getExtension();
+        if(!file_exists($filename)){
+            throw new Exception($filename." Under default device not found!");
+        }
+        
+        return $filename;
     }
 }
