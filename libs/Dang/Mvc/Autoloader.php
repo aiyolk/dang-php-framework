@@ -34,7 +34,7 @@ class Dang_Mvc_Autoloader
         return $this;
 
     }
-    
+
     /*
      * 添加特定类的扩展名
      */
@@ -59,6 +59,7 @@ class Dang_Mvc_Autoloader
 
         preg_match("/^[\\\]?([a-z]+)([_\\\])/si", $className, $m);
         if(!$m){
+            header("HTTP/1.0 404 Not Found");
             throw new Exception($className." no namespace!");
         }
         $namespace = strtolower($m[1]);
@@ -76,6 +77,7 @@ class Dang_Mvc_Autoloader
 
         $filename = realpath($path)."/". preg_replace('/[_\\\]/', DIRECTORY_SEPARATOR, $className) . '.'. $extension;
         if(!file_exists($filename)){
+            header("HTTP/1.0 404 Not Found");
             throw new Exception("File: ".$filename." not found!");
         }
 

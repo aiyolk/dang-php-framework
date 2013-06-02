@@ -2,7 +2,7 @@
 
 /*
  * 路由控制器
- * 
+ *
  * @author wuqingcheng
  * @date 2013.05.22
  * @email wqc200@gmail.com
@@ -22,14 +22,14 @@ class Router
         if(!is_array($param)){
             $param = (array) $param;
         }
-        
+
         $config = \Dang\Quick::config("route");
         if(isset($config->toUrl->{$route})){
             $objName = $config->toUrl->{$route};
         }else{
             $objName = "\Dang_Mvc_Route_Default";
         }
-        
+
         $router = new $objName();
         return $router->toUrl($param);
     }
@@ -44,10 +44,13 @@ class Router
                 if(preg_match($rules[$i], $url)){
                     $objName = $config->toUrl->{$route};
                     $router = new $objName();
-                    return $router->fromUrl($url);
+                    $router->fromUrl($url);
+                    return $route;
                 }
             }
         }
+
+        return "";
     }
 
 }

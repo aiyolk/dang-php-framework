@@ -15,17 +15,18 @@ class Speeder
 {
     private $_startTime = 0;
     private $_endTime = 0;
-    private $_count = 0;
+    private $_count = 1;
 
     public function reset()
     {
         $this->_startTime = 0;
         $this->_endTime = 0;
-        $this->_count = 0;
+        $this->_count = 1;
     }
 
     public function start()
     {
+        $this->reset();
         $this->_startTime = microtime(true);
 
         return $this->_startTime;
@@ -87,7 +88,7 @@ class Speeder
         }
 
         $count = $this->getCount();
-        $speed = round($count/$totalTime);
+        $speed = round($totalTime/$count);
 
         return $speed."/sec";
     }

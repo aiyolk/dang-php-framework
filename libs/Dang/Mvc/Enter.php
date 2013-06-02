@@ -17,7 +17,8 @@ class Dang_Mvc_Enter
         if(isset($_SERVER['REQUEST_URI'])){
             $request_url = $_SERVER['REQUEST_URI'];
             $router = new \Dang\Mvc\Router();
-            $router->fromUrl($request_url);
+            $route = $router->fromUrl($request_url);
+            Dang_Mvc_Param::instance()->setRoute($route);
         }
 
         $module = Dang_Mvc_Request::instance()->getParamGet("module", "www");

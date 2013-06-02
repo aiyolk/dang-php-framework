@@ -8,12 +8,12 @@
  */
 class Dang_Mvc_View_Helper_PaginationControl
 {
-    public function _invoke(Dang_Paginator_Paginator $paginator, $filename, $requestParams, $urlRoute = 'default')
+    public function _invoke(Dang_Paginator_Paginator $paginator, $filename, $requestParams, $urlRoute = '')
     {
         $pages = get_object_vars($paginator->getPages());
         $pages['requestParams'] = $requestParams;
         $pages['urlRoute'] = $urlRoute;
-        
+
         $argv = array($filename, $pages);
         return \Dang_Mvc_View_HelperManager::instance()->getHelper("partial", $argv);
     }

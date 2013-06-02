@@ -22,6 +22,10 @@ class Dang_Paginator_Paginator
      */
     protected $pageCount = null;
     /*
+     * 充许最大展示的页数
+     */
+    protected $maxPageCount = 100;
+    /*
      * 当前页
      */
     protected $currentPageNumber = 1;
@@ -77,10 +81,19 @@ class Dang_Paginator_Paginator
         return $this;
     }
 
+    public function setMaxPageCount($pageCount)
+    {
+        $this->maxPageCount = $pageCount;
+        return $this;
+    }
+
     public function getPageCount()
     {
         if (!$this->pageCount) {
             $this->pageCount = (integer) ceil($this->getTotalItemCount() / $this->getItemCountPerPage());
+        }
+        if($this->maxPageCount && $this->maxPageCount < $this->pageCount){
+            $this->pageCount = $this->maxPageCount;
         }
 
         return $this->pageCount;

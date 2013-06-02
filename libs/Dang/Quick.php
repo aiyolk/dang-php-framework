@@ -15,9 +15,12 @@ class Quick
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
         $config = \Dang\Quick::config("mysql");
-
         if($config->{$name}->tool == "Pdo"){
-            $dsn = "mysql:dbname=".$config->{$name}->dbname.";host=".$config->{$name}->host;
+            $port = "3306";
+            if(isset($config->{$name}->port)){
+                $port = $config->{$name}->port;
+            }
+            $dsn = "mysql:dbname=".$config->{$name}->dbname.";host=".$config->{$name}->host.";port=".$port;
             $db = new \Dang\Sql\SafePdo($dsn, $config->{$name}->user, $config->{$name}->passwd, array(
                 \PDO::ATTR_PERSISTENT => true,
                 \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
@@ -61,6 +64,19 @@ class Quick
         $ttserver = new \TokyoTyrant($config->{$name}->host, $config->{$name}->port);
 
         return $ttserver;
+    }
+
+    public static function ssdb($name, $server = 'master')
+    {
+        $config = \Dang\Quick::config("ssdb");
+        if(!isset($config->{$server}->{$name})){
+            throw new \Exception("config/ssdb.php error! no key '$server/$name'");
+        }
+        $host = $config->{$server}->{$name}->host;
+        $port = $config->{$server}->{$name}->port;
+        $instance = \Apps\Quick::ssdb();
+        $ssdb = $instance->connect($host, $port);
+        return $ssdb;
     }
 
     public static function config($name)
