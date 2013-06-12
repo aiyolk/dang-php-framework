@@ -88,7 +88,7 @@ class Speeder
         }
 
         $count = $this->getCount();
-        $speed = round($totalTime/$count);
+        $speed = round($count/$totalTime);
 
         return $speed."/sec";
     }

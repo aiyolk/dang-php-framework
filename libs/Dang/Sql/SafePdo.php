@@ -93,10 +93,20 @@ Class SafePdo extends \PDO
 		return $result;
 	}
 
-	function getAll($sql)
+	function getAll2($sql)
 	{
 		$PDOStatement = $this->query($sql);
 		$result = $PDOStatement->fetchAll(\PDO::FETCH_ASSOC);
+
+		return $result;
+	}
+
+    function GetAll($sql)
+	{
+        $sth = $this->prepare($sql);
+        $sth->setFetchMode(\PDO::FETCH_ASSOC);
+        $sth->execute();
+        $result = $sth->fetchAll();
 
 		return $result;
 	}

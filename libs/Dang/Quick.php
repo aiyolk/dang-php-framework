@@ -79,6 +79,32 @@ class Quick
         return $ssdb;
     }
 
+    public static function hbase($server)
+    {
+        $config = \Dang\Quick::config("hbase");
+        if(!isset($config->{$server}->host) || !isset($config->{$server}->port)){
+            throw new \Exception("config/hbase.php error! no key '$server'");
+        }
+        $host = $config->{$server}->host;
+        $port = $config->{$server}->port;
+        $hbase = \Apps\Quick::hbase();
+        $client = $hbase->connect($host, $port);
+        return $client;
+    }
+
+    public static function hbaseRest($server)
+    {
+        $config = \Dang\Quick::config("hbaseRest");
+        if(!isset($config->{$server}->host) || !isset($config->{$server}->port)){
+            throw new \Exception("config/hbaseRest.php error! no key '$server'");
+        }
+        $host = $config->{$server}->host;
+        $port = $config->{$server}->port;
+        $hbase = \Apps\Quick::hbaseRest();
+        $client = $hbase->connect($host, $port);
+        return $client;
+    }
+
     public static function config($name)
     {
         if (isset(self::$_config[$name])) {

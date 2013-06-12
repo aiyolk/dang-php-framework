@@ -14,6 +14,8 @@ class Quick
     private static $_phpmailer;
     private static $_mobileDetect;
     private static $_ssdb;
+    private static $_hbase;
+    private static $_hbaseRest;
 
     /*
      * phpmailer调用器
@@ -56,12 +58,33 @@ class Quick
         if (isset(self::$_ssdb)) {
             return self::$_ssdb;
         }
-        
+
         self::$_ssdb = new \Apps\Ssdb\Client();
 
         return self::$_ssdb;
     }
 
+    public static function hbase()
+    {
+        if (isset(self::$_hbase)) {
+            return self::$_hbase;
+        }
+
+        self::$_hbase = new \Apps\Hbase\Client();
+
+        return self::$_hbase;
+    }
+
+    public static function hbaseRest()
+    {
+        if (isset(self::$_hbaseRest)) {
+            return self::$_hbaseRest;
+        }
+
+        self::$_hbaseRest = new \Apps\HbaseRest\Client();
+
+        return self::$_hbaseRest;
+    }
 }
 
 ?>
