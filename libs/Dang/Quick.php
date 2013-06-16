@@ -105,6 +105,32 @@ class Quick
         return $client;
     }
 
+    public static function redis($server)
+    {
+        $config = \Dang\Quick::config("redis");
+        if(!isset($config->{$server}->host) || !isset($config->{$server}->port)){
+            throw new \Exception("config/redis.php error! no key '$server'");
+        }
+        $db = 0;
+        if(isset($config->{$server}->db)){
+            $db = $config->{$server}->db;
+        }
+
+        $redis = new \Redis();
+        $redis->connect($config->{$server}->host, $config->{$server}->port, $config->{$server}->timeout);
+        $redis->select($db);
+
+        return $redis;
+    }
+
+    public static function captcha()
+    {
+        $config = \Dang\Quick::config("captcha");
+        $captcha = new \Zend\Captcha\Image($config->toArray());
+
+        return $captcha;
+    }
+
     public static function config($name)
     {
         if (isset(self::$_config[$name])) {
@@ -133,6 +159,8 @@ class Quick
 
         return self::$_logger[$name];
     }
+
+
 }
 
 ?>

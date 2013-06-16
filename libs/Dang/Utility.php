@@ -22,6 +22,15 @@ class Utility
         return $tags;
     }
 
+    static function writeFile($filename, $data, $method='a')
+    {
+        $handle = @fopen($filename, $method);
+        if($handle)
+        {
+            fputs($handle, $data);
+            fclose($handle);
+        }
+    }
 }
 
 ?>

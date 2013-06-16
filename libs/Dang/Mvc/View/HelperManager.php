@@ -12,6 +12,7 @@ class Dang_Mvc_View_HelperManager
         'partial'             => 'Dang_Mvc_View_Helper_Partial',
         'serverUrl'           => 'Dang_Mvc_View_Helper_ServerUrl',
         'totalTime'           => 'Dang_Mvc_View_Helper_TotalTime',
+        'clock'               => 'Dang_Mvc_View_Helper_Clock',
     );
 
     protected static $_instance;

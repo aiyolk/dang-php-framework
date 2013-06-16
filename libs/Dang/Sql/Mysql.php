@@ -91,7 +91,7 @@ class Mysql
         return $result;
     }
 
-    function getAll($sql)
+    function GetAll($sql)
     {
         $query = $this->query($sql);
         $ret = array();

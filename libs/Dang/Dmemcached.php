@@ -10,13 +10,13 @@ class Dmemcached
 
     public function __construct()
     {
-        $config = \Dang\Quick::config("cache");
+        $config = \Dang\Quick::config("memcacheServer");
 
         $memcached = new MemcachedResource();
         $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
         $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
         $memcached->setOption(MemcachedResource::OPT_LIBKETAMA_COMPATIBLE, true);
-        $memcached->addServers($config->memcached->servers->toArray());
+        $memcached->addServers($config->toArray());
 
         $this->memcached = $memcached;
     }

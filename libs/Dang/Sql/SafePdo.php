@@ -34,6 +34,13 @@ Class SafePdo extends \PDO
         return $PDOStatement;
 	}
 
+    function prepare($sql)
+	{
+        \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
+
+        return parent::prepare($sql);
+	}
+
     function exec($sql)
 	{
         \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
@@ -56,7 +63,9 @@ Class SafePdo extends \PDO
         }
         $query = $action.' INTO `' . $table . '` ('.$query_1.') VALUES ('.$query_2.')';
 
-        $result = $this->exec($query);
+        $sth = $this->prepare($query);
+        $result = $sth->execute();
+        $sth->closeCursor();
 
         return $result;
     }
@@ -72,7 +81,10 @@ Class SafePdo extends \PDO
         }
         $query .=' WHERE ' . $where.' ';
 
-        $result = $this->exec($query);
+        #$result = $this->exec($query);
+        $sth = $this->prepare($query);
+        $result = $sth->execute();
+        $sth->closeCursor();
 
         return $result;
     }
@@ -93,14 +105,6 @@ Class SafePdo extends \PDO
 		return $result;
 	}
 
-	function getAll2($sql)
-	{
-		$PDOStatement = $this->query($sql);
-		$result = $PDOStatement->fetchAll(\PDO::FETCH_ASSOC);
-
-		return $result;
-	}
-
     function GetAll($sql)
 	{
         $sth = $this->prepare($sql);
@@ -113,7 +117,7 @@ Class SafePdo extends \PDO
 
     function insert_id()
     {
-        print $this->lastInsertId();
+        return $this->lastInsertId();
     }
 
     function debug($debug)

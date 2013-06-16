@@ -46,11 +46,10 @@ abstract class Dang_Mvc_AbstractController
             $method = 'notFoundAction';
         }
 
-        $speeder = Dang_Mvc_ServiceManager::instance()->get("speeder");
-        $speeder->start();
+        \Dang\Clock::getOne('Total')->start();
         $result = $this->$method();
-        $speeder->end();
-        
+        \Dang\Clock::getOne('Total')->end();
+
         return $result;
     }
 
