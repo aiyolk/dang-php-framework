@@ -14,22 +14,7 @@ class Quick
     {
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
-        $config = \Dang\Quick::config("mysql");
-        if($config->{$name}->tool == "Pdo"){
-            $port = "3306";
-            if(isset($config->{$name}->port)){
-                $port = $config->{$name}->port;
-            }
-            $dsn = "mysql:dbname=".$config->{$name}->dbname.";host=".$config->{$name}->host.";port=".$port;
-            $db = new \Dang\Sql\SafePdo($dsn, $config->{$name}->user, $config->{$name}->passwd, array(
-                \PDO::ATTR_PERSISTENT => true,
-                \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
-            ));
-        }else{
-            $db = new \Dang\Sql\Mysql();
-            $db->connect($config->{$name}->host, $config->{$name}->user, $config->{$name}->passwd, $config->{$name}->dbname);
-            $db->query('SET NAMES utf8');
-        }
+        $db = new \Dang\Sql\Mysql($name);
 
         $db->debug($dbdebug);
 
@@ -117,10 +102,28 @@ class Quick
         }
 
         $redis = new \Redis();
-        $redis->connect($config->{$server}->host, $config->{$server}->port, $config->{$server}->timeout);
+        $redis->pconnect($config->{$server}->host, $config->{$server}->port, $config->{$server}->timeout);
         $redis->select($db);
 
         return $redis;
+    }
+
+    public static function cassandra($server)
+    {
+        $config = \Dang\Quick::config("cassandra");
+        if(!isset($config->{$server})){
+            throw new \Exception("config/cassandra.php error! no key '$server'");
+        }
+        $cassandra = \Apps\Quick::cassandra();
+        $client = $cassandra->connect($config->{$server});
+        return $client;
+    }
+
+    public static function riak($server)
+    {
+        $client = new \Basho\Riak\Riak('127.0.0.1', 8098);
+
+        return $client;
     }
 
     public static function captcha()

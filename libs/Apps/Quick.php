@@ -16,6 +16,9 @@ class Quick
     private static $_ssdb;
     private static $_hbase;
     private static $_hbaseRest;
+    private static $_riak;
+    private static $_couchbase;
+    private static $_cassandra;
 
     /*
      * phpmailer调用器
@@ -84,6 +87,39 @@ class Quick
         self::$_hbaseRest = new \Apps\HbaseRest\Client();
 
         return self::$_hbaseRest;
+    }
+
+    public static function riak()
+    {
+        if (isset(self::$_riak)) {
+            return self::$_riak;
+        }
+
+        self::$_riak = new \Apps\Basho\Client();
+
+        return self::$_riak;
+    }
+
+    public static function couchbase()
+    {
+        if (isset(self::$_couchbase)) {
+            return self::$_couchbase;
+        }
+
+        self::$_couchbase = new \Apps\Couchbase\Client();
+
+        return self::$_couchbase;
+    }
+
+    public static function cassandra()
+    {
+        if (isset(self::$_cassandra)) {
+            return self::$_cassandra;
+        }
+
+        self::$_cassandra = new \Apps\Cassandra\Client();
+
+        return self::$_cassandra;
     }
 }
 

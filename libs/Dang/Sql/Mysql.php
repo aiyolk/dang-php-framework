@@ -4,50 +4,50 @@ namespace Dang\Sql;
 
 class Mysql
 {
-    private $_newLink;
-    private $_dblink;
+    private $_db;
     private $_debug;
 
-    //－－－－－－－－-
-    //php5构造函数
-    //－－－－－－－－-
-    function __construct($newLink = false)
+    function __construct($dbname)
     {
-        $this->_newLink = $newLink;
-    }
+        $config = \Dang\Quick::config("mysql");
 
-    public function connect($dbhost, $dbuser, $dbpw, $dbname)
-    {
-        if(!$this->_dblink = mysql_connect($dbhost, $dbuser, $dbpw, $this->_newLink)) {
-            $this->halt('Unable to connect the MySQL server.');
+        $port = "3306";
+        if(isset($config->{$dbname}->port)){
+            $port = $config->{$dbname}->port;
         }
+        $dsn = "mysql:dbname=".$config->{$dbname}->dbname.";host=".$config->{$dbname}->host.";port=".$port;
+        $db = new \Dang\Sql\SafePdo($dsn, $config->{$dbname}->user, $config->{$dbname}->passwd, array(
+            \PDO::ATTR_PERSISTENT => true,
+            \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
+        ));
 
-        mysql_query("SET names utf8", $this->_dblink);
-        mysql_select_db($dbname, $this->_dblink);
-
-        return $this;
+        $this->_db = $db;
     }
 
-    function fetch_array($query, $result_type = MYSQL_ASSOC)
-    {
-        return mysql_fetch_array($query, $result_type);
-    }
-
-    function query($sql, $method = '')
-    {
+    function query($sql)
+	{
         \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
 
-        $query = mysql_query($sql, $this->_dblink);
-        if(!$query) {
-            $this->halt('MySQL Query Error.');
-        }
+        $PDOStatement = $this->_db->query($sql);
 
-        return $query;
+        return $PDOStatement;
+	}
+
+    function prepare($sql)
+	{
+        \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
+
+        return $this->_db->prepare($sql);
+	}
+
+    function lastInsertId()
+	{
+        return $this->_db->lastInsertId();
     }
 
-    function executeInsert($table, $data, $action = 'INSERT')
-    {
-        reset($data);
+    function executeInsert($table, $data, $action = "INSERT")
+	{
+		reset($data);
 
         $space = $query_1 = $query_2 = '';
         foreach($data as $key=>$val)
@@ -58,13 +58,15 @@ class Mysql
         }
         $query = $action.' INTO `' . $table . '` ('.$query_1.') VALUES ('.$query_2.')';
 
-        return $this->query($query);
+        $sth = $this->prepare($query);
+        $result = $sth->execute();
+        $sth->closeCursor();
+
+        return $result;
     }
 
     function executeUpdate($table, $data, $where = '')
-    {
-        reset($data);
-
+	{
         $query = 'UPDATE `' . $table . '` SET ';
         $space='';
         foreach($data as $key=>$val)
@@ -74,105 +76,55 @@ class Mysql
         }
         $query .=' WHERE ' . $where.' ';
 
-        return $this->query($query,'ub');
-    }
+        #$result = $this->exec($query);
+        $sth = $this->prepare($query);
+        $result = $sth->execute();
+        $sth->closeCursor();
 
-    function GetOne($sql)
-    {
-        $query = $this->query($sql);
-        $result = $this->result($query, 0);
         return $result;
     }
 
-    function GetRow($sql)
-    {
-        $query = $this->query($sql);
-        $result = $this->fetch_array($query);
-        return $result;
-    }
+	function getOne($sql)
+	{
+        $sth = $this->prepare($sql);
+        $sth->execute();
+        $result = $sth->fetchColumn();
 
-    function GetAll($sql)
-    {
-        $query = $this->query($sql);
-        $ret = array();
-        while($result = $this->fetch_array($query))
-        {
-            $ret[] = $result;
-        }
-        return $ret;
-    }
+		return $result;
+	}
 
-    function GetCount($sql)
-    {
-        $query = $this->query($sql);
-        $ret = reset($this->fetch_array($query));
-        return $ret;
-    }
+	function getRow($sql)
+	{
+		$PDOStatement = $this->query($sql);
+		$result = $PDOStatement->fetch(\PDO::FETCH_ASSOC);
 
-    function GetNumRows($sql)
-    {
-        $query = $this->query($sql);
-        return $this->num_rows($query);
-    }
+		return $result;
+	}
 
-    function affected_rows()
-    {
-        return mysql_affected_rows($this->_dblink);
-    }
+    function getAll($sql)
+	{
+        $sth = $this->prepare($sql);
+        $sth->setFetchMode(\PDO::FETCH_ASSOC);
+        $sth->execute();
+        $result = $sth->fetchAll();
 
-    function error()
-    {
-        return mysql_error();
-    }
+		return $result;
+	}
 
-    function errno()
+    function getInsertId()
     {
-        return mysql_errno();
-    }
-
-    function result($query, $row)
-    {
-        return @mysql_result($query, $row);
-    }
-
-    function num_rows($query)
-    {
-        return mysql_num_rows($query);
-    }
-
-    function num_fields($query)
-    {
-        return mysql_num_fields($query);
-    }
-
-    function field_name($query)
-    {
-        return mysql_field_name($query);
-    }
-
-    function free_result($query)
-    {
-        return mysql_free_result($query);
+        return $this->lastInsertId();
     }
 
     function insert_id()
     {
-        return mysql_insert_id($this->_dblink);
+        return $this->lastInsertId();
     }
 
-    function fetch_row($query)
-    {
-        return mysql_fetch_row($query);
-    }
 
     function close()
     {
-        return mysql_close($this->_dblink);
-    }
-
-    function version()
-    {
-        return mysql_get_server_info();
+        $this->_db = null;
     }
 
     function halt($message)

@@ -4,8 +4,6 @@ namespace Dang\Sql;
 
 Class SafePdo extends \PDO
 {
-	private $_debug = false;
-
     public static function exception_handler($exception)
     {
         throw new \Exception('Uncaught exception: '. $exception->getMessage());
@@ -25,109 +23,6 @@ Class SafePdo extends \PDO
         restore_exception_handler();
     }
 
-	function query($sql)
-	{
-        \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
-
-        $PDOStatement = parent::query($sql);
-
-        return $PDOStatement;
-	}
-
-    function prepare($sql)
-	{
-        \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
-
-        return parent::prepare($sql);
-	}
-
-    function exec($sql)
-	{
-        \Zend\Debug\Debug::dump($sql, "sql: ", $this->_debug);
-
-        $result = parent::exec($sql);
-
-        return $result;
-	}
-
-    function executeInsert($table, $data, $action = "INSERT")
-	{
-		reset($data);
-
-        $space = $query_1 = $query_2 = '';
-        foreach($data as $key=>$val)
-        {
-            $query_1 .= $space.$key;
-            $query_2 .= $space."'".$val."'";
-            $space=', ';
-        }
-        $query = $action.' INTO `' . $table . '` ('.$query_1.') VALUES ('.$query_2.')';
-
-        $sth = $this->prepare($query);
-        $result = $sth->execute();
-        $sth->closeCursor();
-
-        return $result;
-    }
-
-    function executeUpdate($table, $data, $where = '')
-	{
-        $query = 'UPDATE `' . $table . '` SET ';
-        $space='';
-        foreach($data as $key=>$val)
-        {
-            $query .= $space.$key . "= '" . $val. "'";
-            $space=', ';
-        }
-        $query .=' WHERE ' . $where.' ';
-
-        #$result = $this->exec($query);
-        $sth = $this->prepare($query);
-        $result = $sth->execute();
-        $sth->closeCursor();
-
-        return $result;
-    }
-
-	function GetOne($sql)
-	{
-		$PDOStatement = $this->query($sql);
-        $result = $PDOStatement->fetchColumn();
-
-		return $result;
-	}
-
-	function GetRow($sql)
-	{
-		$PDOStatement = $this->query($sql);
-		$result = $PDOStatement->fetch(\PDO::FETCH_ASSOC);
-
-		return $result;
-	}
-
-    function GetAll($sql)
-	{
-        $sth = $this->prepare($sql);
-        $sth->setFetchMode(\PDO::FETCH_ASSOC);
-        $sth->execute();
-        $result = $sth->fetchAll();
-
-		return $result;
-	}
-
-    function insert_id()
-    {
-        return $this->lastInsertId();
-    }
-
-    function debug($debug)
-	{
-        $this->_debug = $debug;
-    }
-
-    function close()
-	{
-    }
 }
 
 ?>
