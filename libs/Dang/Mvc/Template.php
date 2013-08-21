@@ -37,13 +37,13 @@ class Dang_Mvc_Template
         $this->_path = (string)$path;
         return $this;
     }
-    
+
     public function getPath()
     {
         if(isset($this->_path)){
             return $this->_path;
         }
-        
+
         $tplDir = "./tpl";
         $config = \Dang\Quick::config("base");
         if(isset($config->tplDir)){
@@ -53,7 +53,7 @@ class Dang_Mvc_Template
         $this->_path = (string)$tplDir;
         return $this->_path;
     }
-    
+
     public function setLayout($name)
     {
         $this->_layout = $name;
@@ -69,7 +69,7 @@ class Dang_Mvc_Template
         $this->_layout = "Layout";
         return $this->_layout;
     }
-    
+
     public function setPartial($name)
     {
         $this->_partial = $name;
@@ -86,7 +86,7 @@ class Dang_Mvc_Template
         $this->_module = $name;
         return $this;
     }
-    
+
     public function getModule()
     {
         if(!isset($this->_module)){
@@ -102,17 +102,17 @@ class Dang_Mvc_Template
         $this->_device = $name;
         return $this;
     }
-    
+
     public function getDevice()
     {
         if(isset($this->_device)){
             return $this->_device;
         }
-        
+
         $this->_device = Dang_Mvc_Param::instance()->getDevice();
         return $this->_device;
     }
-    
+
     public function getDefaultDevice()
     {
         $defaultDevice = "pc";
@@ -123,7 +123,7 @@ class Dang_Mvc_Template
         $defaultDevice = ucfirst($defaultDevice);
         return $defaultDevice;
     }
-    
+
     public function getController()
     {
         if(!isset($this->_controller)){
@@ -145,7 +145,7 @@ class Dang_Mvc_Template
         $this->_action = $name;
         return $this;
     }
-    
+
     public function getAction()
     {
         if(!isset($this->_action)){
@@ -169,67 +169,70 @@ class Dang_Mvc_Template
         }
 
         $this->_extension = "phtml";
-        
+
         return $this->_extension;
     }
-    
+
     public function getPartialFilename()
     {
         $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getPartial(). ".".$this->getExtension();
         if(file_exists($filename)){
             return $filename;
         }
-        
+
+        //如果没有找到适配的驱动模板，则使用默认模板
         $defaultDevice = $this->getDefaultDevice();
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
-        
+
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getPartial(). ".".$this->getExtension();
         if(!file_exists($filename)){
             throw new Exception("Partial file: ".$filename."(under default device) not found!");
         }
-        
+
         return $filename;
     }
-    
+
     public function getActionFilename()
     {
         $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
         if(file_exists($filename)){
             return $filename;
         }
-        
+
+        //如果没有找到适配的驱动模板，则使用默认模板
         $defaultDevice = $this->getDefaultDevice();
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
-        
+
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
         if(!file_exists($filename)){
             throw new Exception("Action file: ".$filename."(under default device) not found!");
         }
-        
+
         return $filename;
     }
-    
+
     public function getLayoutFilename()
     {
         $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getModule()."/".$this->getLayout(). ".".$this->getExtension();
         if(file_exists($filename)){
             return $filename;
         }
-        
+
+        //如果没有找到适配的驱动模板，则使用默认模板
         $defaultDevice = $this->getDefaultDevice();
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
-        
+
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getLayout(). ".".$this->getExtension();
         if(!file_exists($filename)){
             throw new Exception("Layout file: ".$filename."(under default device) not found!");
         }
-        
+
         return $filename;
     }
 }

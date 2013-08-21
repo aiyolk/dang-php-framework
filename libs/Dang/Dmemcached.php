@@ -56,5 +56,16 @@ class Dmemcached
         return true;
     }
 
+    public function incrementItem(& $normalizedKey, $offset = 1)
+    {
+        $memc = $this->memcached;
+
+        if (!$memc->increment($normalizedKey, $offset)) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
 

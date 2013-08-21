@@ -19,6 +19,7 @@ class Quick
     private static $_riak;
     private static $_couchbase;
     private static $_cassandra;
+    private static $_phpcassa;
 
     /*
      * phpmailer调用器
@@ -120,6 +121,17 @@ class Quick
         self::$_cassandra = new \Apps\Cassandra\Client();
 
         return self::$_cassandra;
+    }
+
+    public static function phpcassa()
+    {
+        if (isset(self::$_phpcassa)) {
+            return self::$_phpcassa;
+        }
+
+        self::$_phpcassa = new \Apps\Phpcassa\Client();
+
+        return self::$_phpcassa;
     }
 }
 
