@@ -45,6 +45,17 @@ class Dmemcached
         return $result;
     }
 
+    public function delItem($normalizedKey)
+    {
+        $memc = $this->memcached;
+
+        if (!$memc->set($normalizedKey)) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function setItem(& $normalizedKey, & $value, $expiration = 0)
     {
         $memc = $this->memcached;

@@ -4,16 +4,16 @@ namespace Dang\Sql;
 
 class Mysql extends MysqlPdo
 {
-    function __construct($dbname)
+    function __construct($dbname, $server = "slaver")
     {
         $config = \Dang\Quick::config("mysql");
 
         $port = "3306";
-        if(isset($config->{$dbname}->port)){
-            $port = $config->{$dbname}->port;
+        if(isset($config->{$server}->port)){
+            $port = $config->{$server}->port;
         }
 
-        parent::__construct($config->{$dbname}->dbname, $config->{$dbname}->host, $port, $config->{$dbname}->user, $config->{$dbname}->passwd);
+        parent::__construct($dbname, $config->{$server}->host, $port, $config->{$server}->user, $config->{$server}->passwd);
     }
 
     function insert_id()

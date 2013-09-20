@@ -10,11 +10,11 @@ class Quick
     /*
      * 创建数据库连接
      */
-    public static function mysql($name)
+    public static function mysql($name, $server = "slaver")
     {
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
-        $db = new \Dang\Sql\Mysql($name);
+        $db = new \Dang\Sql\Mysql($name, $server);
 
         $db->debug($dbdebug);
 
@@ -25,11 +25,15 @@ class Quick
     {
         $config = \Dang\Quick::config("mongo");
         //\MongoPool::setSize(2000);
+        $options = array();
         if($config->{$name}->replicaSet){
-            $mongo = new \Mongo("mongodb://".$config->{$name}->host.":".$config->{$name}->port, array("replicaSet" => $config->{$name}->replicaSet));
-        }else{
-            $mongo = new \Mongo("mongodb://".$config->{$name}->host.":".$config->{$name}->port);
+            $options['replicaSet'] = $config->{$name}->replicaSet;
         }
+        //$options['persistent'] = true;
+        $mongo = new \MongoClient("mongodb://".$config->{$name}->host.":".$config->{$name}->port, $options);
+        $mongo->status = true;
+
+        \MongoCursor::$slaveOkay = true;
 
         return $mongo;
     }

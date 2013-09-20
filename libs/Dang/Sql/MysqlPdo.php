@@ -39,6 +39,15 @@ class MysqlPdo
         return $this->_db->lastInsertId();
     }
 
+    function executeSql($sql)
+	{
+        $sth = $this->prepare($sql);
+        $result = $sth->execute();
+        $sth->closeCursor();
+
+        return $result;
+    }
+
     function executeInsert($table, $data, $action = "INSERT")
 	{
 		reset($data);
