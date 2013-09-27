@@ -10,11 +10,17 @@ class MysqlPdo
     function __construct($dbname, $host, $port, $user, $passwd)
     {
         $dsn = "mysql:dbname=".$dbname.";host=".$host.";port=".$port;
-        $db = new \Dang\Sql\SafePdo($dsn, $user, $passwd, array(
-            \PDO::ATTR_PERSISTENT => true,
-            \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
-        ));
+        \Zend\Debug\Debug::dump($dsn, "Pdo dsn: ", $this->_debug);
 
+        try {
+            $db = new \Dang\Sql\SafePdo($dsn, $user, $passwd, array(
+                \PDO::ATTR_PERSISTENT => true,
+                \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
+            ));
+        } catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
+        
         $this->_db = $db;
     }
 

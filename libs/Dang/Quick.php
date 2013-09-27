@@ -24,14 +24,27 @@ class Quick
     public static function mongo($name)
     {
         $config = \Dang\Quick::config("mongo");
-        //\MongoPool::setSize(2000);
-        $options = array();
-        if($config->{$name}->replicaSet){
-            $options['replicaSet'] = $config->{$name}->replicaSet;
+
+        //\MongoLog::setModule( MongoLog::ALL );
+        //\MongoLog::setLevel( MongoLog::ALL );
+        if(is_array($config->{$name})){
+            //\MongoPool::setSize(2000);
+            $options = array();
+            if($config->{$name}->replicaSet){
+                $options['replicaSet'] = $config->{$name}->replicaSet;
+            }
+            //$options['persistent'] = true;
+            $mongo = new \MongoClient("mongodb://".$config->{$name}->host.":".$config->{$name}->port, $options);
+            $mongo->status = true;
+        }else{
+            $options = array();
+            $options['replicaSet'] = "myset";
+            //$options['w'] = "0";
+            $mongo = new \MongoClient("mongodb://".$config->{$name}, $options);
+            //$mongo->status = true;
         }
-        //$options['persistent'] = true;
-        $mongo = new \MongoClient("mongodb://".$config->{$name}->host.":".$config->{$name}->port, $options);
-        $mongo->status = true;
+        // Prefer the nearest server with no tag preference
+        //$mongo->setReadPreference(\MongoClient::RP_NEAREST, array());
 
         \MongoCursor::$slaveOkay = true;
 
