@@ -176,8 +176,6 @@ class Quick
             return self::$_config[$name];
         }
 
-        include '/var/www/mychemy.com/config/'.$name.'.php';
-
         $config = \Zend\Config\Factory::fromFile('./config/'.$name.'.php', true);
         if($config){
             self::$_config[$name] = $config;

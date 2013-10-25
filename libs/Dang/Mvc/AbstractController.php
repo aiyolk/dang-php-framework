@@ -62,6 +62,15 @@ abstract class Dang_Mvc_AbstractController
 
     }
 
+    /*
+     * 视图助手
+     */
+    public function getHelper()
+    {
+        $helper = new Dang_Mvc_View_Helper();
+        
+        return $helper;
+    }
 }
 
 ?>
