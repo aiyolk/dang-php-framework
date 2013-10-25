@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * 视图助手
+ * 
+ */
 class Dang_Mvc_View_Helper 
 {
     public function __call($method, $argv)

@@ -64,6 +64,9 @@ abstract class Dang_Mvc_AbstractController
 
     /*
      * 视图助手
+     * 
+     * 使用方法：
+     * echo $this->getHelper()->serverUrl();
      */
     public function getHelper()
     {
