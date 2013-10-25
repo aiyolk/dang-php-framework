@@ -58,7 +58,7 @@ class Base implements \Dang_Mvc_Route_Interface
     public function fromUrl($url)
     {
         $request_url = $url;
-        if(preg_match("/^\/(index.php)?$/si", $url, $match)){
+        if(preg_match("/^\/(index.php)?/si", $url, $match)){
             \Dang_Mvc_Request::instance()->setParamGet("module", "www");
             \Dang_Mvc_Request::instance()->setParamGet("controller", "index");
             \Dang_Mvc_Request::instance()->setParamGet("action", "index");

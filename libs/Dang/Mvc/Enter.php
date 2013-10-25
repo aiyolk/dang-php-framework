@@ -41,12 +41,12 @@ class Dang_Mvc_Enter
         $device = Dang_Mvc_Utility::paramUrlToMvc($device);
         Dang_Mvc_Param::instance()->setDevice($device);
 
-        $controller = Dang_Mvc_Request::instance()->getParamGet("controller", "test");
+        $controller = Dang_Mvc_Request::instance()->getParamGet("controller", "index");
         $controller = Dang_Mvc_Utility::paramUrlToMvc($controller);
         $this->controllerName = ucfirst($controller);
         Dang_Mvc_Param::instance()->setController($this->controllerName);
 
-        $action = Dang_Mvc_Request::instance()->getParamGet("action", "test");
+        $action = Dang_Mvc_Request::instance()->getParamGet("action", "index");
         $action = Dang_Mvc_Utility::paramUrlToMvc($action);
         $this->actionName = ucfirst($action);
         Dang_Mvc_Param::instance()->setAction($this->actionName);
