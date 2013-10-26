@@ -2,7 +2,7 @@
 
 /*
  * 默认路由，不需要配制rewrite
- * 
+ *
  * 提供对形如 http://www.site.com/?module=www&controller=test&action=test 的url的创建和解析
  * @author wuqingcheng
  * @date 2013.05.28

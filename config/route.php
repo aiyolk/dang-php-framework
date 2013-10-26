@@ -17,6 +17,7 @@ $fromUrl = array(
     ),
 );
 $return = array(
+    'defaultRoute' => "base", //设置默认使用的路由
     'toUrl' => $toUrl,
     'fromUrl' => $fromUrl,
 );

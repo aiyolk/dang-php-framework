@@ -13,6 +13,10 @@ class Dang_Mvc_View_Helper_Url
             $route = Dang_Mvc_Param::instance()->getRoute();
         }
         if(!$route){
+            $config = \Dang\Quick::config("route");
+            $route = $config->defaultRoute;
+        }
+        if(!$route){
             $route = "default";
         }
         $router = new \Dang\Mvc\Router();
