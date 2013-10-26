@@ -206,6 +206,7 @@ class Dang_Mvc_Template
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
+        $this->setDevice($defaultDevice);
 
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
         if(!file_exists($filename)){

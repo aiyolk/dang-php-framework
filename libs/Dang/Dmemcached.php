@@ -72,7 +72,7 @@ class Dmemcached
         $memc = $this->memcached;
 
         if (!$memc->increment($normalizedKey, $offset)) {
-            return false;
+            $memc->set($normalizedKey, $offset);
         }
 
         return true;

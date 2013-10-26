@@ -25,30 +25,37 @@ class Quick
     {
         $config = \Dang\Quick::config("mongo");
 
-        //\MongoLog::setModule( MongoLog::ALL );
-        //\MongoLog::setLevel( MongoLog::ALL );
-        if(is_array($config->{$name})){
-            //\MongoPool::setSize(2000);
-            $options = array();
-            if($config->{$name}->replicaSet){
-                $options['replicaSet'] = $config->{$name}->replicaSet;
-            }
-            //$options['persistent'] = true;
-            $mongo = new \MongoClient("mongodb://".$config->{$name}->host.":".$config->{$name}->port, $options);
-            $mongo->status = true;
-        }else{
-            $options = array();
-            $options['replicaSet'] = "myset";
-            //$options['w'] = "0";
+        if(is_string($config->{$name})){
+            $options = array(
+                'replicaSet' => "myset",
+            );
             $mongo = new \MongoClient("mongodb://".$config->{$name}, $options);
-            //$mongo->status = true;
+        }else{
+            $server = $config->{$name}->server;
+            $options = $config->{$name}->options->toArray();
+            $mongo = new \MongoClient("mongodb://".$server, $options);
         }
-        // Prefer the nearest server with no tag preference
-        //$mongo->setReadPreference(\MongoClient::RP_NEAREST, array());
-
         \MongoCursor::$slaveOkay = true;
 
         return $mongo;
+    }
+
+    public static function dynamodb()
+    {
+        $config = \Dang\Quick::config("amazonAws");
+        $key = $config->key;
+        $secret = $config->secret;
+        $region = $config->region;
+
+        // Create a client that uses the us-west-1 region
+        $client = \Aws\DynamoDb\DynamoDbClient::factory(array(
+            'key'    => $key,
+            'secret' => $secret,
+            'region' => $region,
+            'client.backoff.logger' => 'debug'
+        ));
+
+        return $client;
     }
 
     public static function couchbase($bucket)
@@ -175,8 +182,6 @@ class Quick
         if (isset(self::$_config[$name])) {
             return self::$_config[$name];
         }
-
-        include '/var/www/mychemy.com/config/'.$name.'.php';
 
         $config = \Zend\Config\Factory::fromFile('./config/'.$name.'.php', true);
         if($config){
