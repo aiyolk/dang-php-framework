@@ -55,16 +55,38 @@ class Dang_Mvc_Enter
     //执行器
     public function run()
     {
-        $classer = "Controller_".$this->moduleName."_".$this->controllerName;
+        $break = true;
+        //用于forward，最多forward2次，避免进入死循环
+        for($i=0;$i<2;$i++)
+        {
+            $classer = "Controller_".$this->moduleName."_".$this->controllerName;
+            //实例化控制器
+            $controller = new $classer();
+            //执行 $method 方法之前所需要进行的操作，如“打开数据库连接”
+            $controller->preDispatch();
+            //执行 $method 方法
+            $result = $controller->onDispatch();
+            //执行 $method 方法之后所需要进行的操作，如“关闭数据库连接”
+            $controller->postDispatch();
 
-        //实例化控制器
-        $controller = new $classer();
-        //执行 $method 方法之前所需要进行的操作，如“打开数据库连接”
-        $controller->preDispatch();
-        //执行 $method 方法
-        $result = $controller->onDispatch();
-        //执行 $method 方法之后所需要进行的操作，如“关闭数据库连接”
-        $controller->postDispatch();
+            //检查mvc参数是否被重写
+            if($this->moduleName != Dang_Mvc_Param::instance()->getModule()){
+                $break = false;
+                $this->moduleName = Dang_Mvc_Param::instance()->getModule();
+            }
+            if($this->controllerName != Dang_Mvc_Param::instance()->getController()){
+                $break = false;
+                $this->controllerName = Dang_Mvc_Param::instance()->getController();
+            }
+            if($this->actionName != Dang_Mvc_Param::instance()->getAction()){
+                $break = false;
+                $this->actionName = Dang_Mvc_Param::instance()->getAction();
+            }
+
+            if($break == true){
+                break;
+            }
+        }
 
         //根据返回的model对象的类型，决定使用什么样的输出方法
         if($result instanceof Dang_Mvc_View_Model_XmlModel){

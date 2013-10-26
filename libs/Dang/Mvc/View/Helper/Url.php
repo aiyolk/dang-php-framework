@@ -10,9 +10,6 @@ class Dang_Mvc_View_Helper_Url
     public function _invoke($params, $route = '')
     {
         if(!$route){
-            $route = Dang_Mvc_Param::instance()->getRoute();
-        }
-        if(!$route){
             $config = \Dang\Quick::config("route");
             if(isset($config->defaultRoute)){
                 $route = $config->defaultRoute;

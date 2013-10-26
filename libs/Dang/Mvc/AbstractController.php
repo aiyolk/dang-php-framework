@@ -62,16 +62,41 @@ abstract class Dang_Mvc_AbstractController
 
     }
 
+    //转向器
+    public function forward($params = array())
+    {
+        if(isset($params['module'])){
+            $module = $params['module'];
+            $module = Dang_Mvc_Utility::paramUrlToMvc($module);
+            $module = ucfirst($module);
+            Dang_Mvc_Param::instance()->setModule($module);
+        }
+
+        if(isset($params['controller'])){
+            $controller = $params['controller'];
+            $controller = Dang_Mvc_Utility::paramUrlToMvc($controller);
+            $controller = ucfirst($controller);
+            Dang_Mvc_Param::instance()->setController($controller);
+        }
+
+        if(isset($params['action'])){
+            $action = $params['action'];
+            $action = Dang_Mvc_Utility::paramUrlToMvc($action);
+            $action = ucfirst($action);
+            Dang_Mvc_Param::instance()->setAction($action);
+        }
+    }
+
     /*
      * 视图助手
-     * 
+     *
      * 使用方法：
      * echo $this->getHelper()->serverUrl();
      */
     public function getHelper()
     {
         $helper = new Dang_Mvc_View_Helper();
-        
+
         return $helper;
     }
 }
