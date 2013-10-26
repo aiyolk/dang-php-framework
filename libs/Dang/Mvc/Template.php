@@ -206,6 +206,7 @@ class Dang_Mvc_Template
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
+        //模板一致性（加入下面的这句，可以使action和layout及partial调用同一个驱动器下的模板）
         $this->setDevice($defaultDevice);
 
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
