@@ -14,7 +14,9 @@ class Dang_Mvc_View_Helper_Url
         }
         if(!$route){
             $config = \Dang\Quick::config("route");
-            $route = $config->defaultRoute;
+            if(isset($config->defaultRoute)){
+                $route = $config->defaultRoute;
+            }
         }
         if(!$route){
             $route = "default";
