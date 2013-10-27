@@ -7,7 +7,7 @@
 
 class Dang_Mvc_View_Helper_Url
 {
-    public function _invoke($params, $route = '')
+    public function _invoke($params = array(), $route = '')
     {
         if(!$route){
             $config = \Dang\Quick::config("route");
