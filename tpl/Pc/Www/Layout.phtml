@@ -4,8 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php echo $this->headMeta();?>
-<link href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-<link href="http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<!-- Bootstrap theme -->
+<link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 <style type="text/css">
 body {
   padding-top: 60px;
@@ -13,30 +20,31 @@ body {
 }
 </style>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="https://github.com/wqc200/dang-php-framework">dang-php-framework</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="https://github.com/wqc200/dang-php-framework">dang-php-framework</a>
       </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
     </div>
+</div>
+ 
+<? echo $this->content;?>
     
-    <div class="container">
-    <? echo $this->content;?>
-    </div>
-    <div class="container">
-    Total time:<?php echo $this->totalTime();?>
-    </div>
+<div class="container">
+Total time:<?php echo $this->totalTime();?>
+</div>
+    
 </body>
 </html>

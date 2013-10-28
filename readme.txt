@@ -1,5 +1,5 @@
 ﻿命令行下使用方法：
-php /var/www/mvc/public/index.php module=www controller=test action=test
+php /var/www/dang-php-framework/public/index.php module=www controller=test action=test
 
 浏览器下使用方法：
-http://host.com/?module=www&controller=add_cart&action=test
+http://dang-php-framework.com/?module=www&controller=add_cart&action=test
