@@ -32,6 +32,30 @@ class Controller_Www_Index  extends Controller_Www_Abstract
         
         return $htmlModel;
     }
+    
+    public function ViewFormAction()
+    {
+        $htmlModel = new Dang_Mvc_View_Model_HtmlModel();
+        
+        return $htmlModel;
+    }
+    
+    public function GetJsonAction()
+    {
+        $jsonModel = new Dang_Mvc_View_Model_JsonModel();
+        
+        $username = Dang_Mvc_Request::instance()->getParamPost("username");
+        if(!$username){
+            $jsonModel->errorCode = 100;
+            $jsonModel->message = "请输入用户名";
+            return $jsonModel;
+        }
+        
+        $jsonModel->errorCode = 0;
+        $jsonModel->message = "success";
+        
+        return $jsonModel;
+    }
         
 }
 

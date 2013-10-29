@@ -3,18 +3,21 @@
 <?php echo $this->headTitle()->append("Site name");?>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <?php echo $this->headMeta();?>
 <link href="<?php echo $this->serverUrl();?>/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <!-- Bootstrap theme -->
 <link href="<?php echo $this->serverUrl();?>/css/bootstrap-theme.min.css" rel="stylesheet">
 <!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="<?php echo $this->serverUrl();?>/css/bootstrap-ie6.min.css?1">
+<link rel="stylesheet" type="text/css" href="<?php echo $this->serverUrl();?>/css/bootstrap-ie6.css?1">
 <![endif]-->
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="<?php echo $this->serverUrl();?>/css/ie.css">
 <![endif]-->
 <link href="<?php echo $this->serverUrl();?>/css/non-responsive.css" rel="stylesheet" media="screen">
+<link href="<?php echo $this->serverUrl();?>/css/showLoading.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/bootstrap.min.js"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -33,15 +36,7 @@ body {
 .navbar-fixed-bottom .container {
     width:1140px;
 }
-/* 修复ie6下分页组件css解析失败的问题 */
-.pagination .active a,
-.pagination .active span {
-  z-index: 2;
-  color: #ffffff;
-  cursor: default;
-  background-color: #428bca;
-  border-color: #428bca;
-}
+
 </style>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">

@@ -4960,3 +4960,64 @@ input[type="submit"].btn.btn-mini {
 .affix {
   position: fixed;
 }
+
+
+/*　宽度大，溢出的问题 */
+.col-xs-1 {
+  width: 5.7%;
+}
+
+.col-xs-2 {
+  width: 13.8%;
+  border-color: #428bca;
+}
+
+.col-xs-3 {
+  width: 22%;
+}
+
+.col-xs-4 {
+  width: 30.5%;
+}
+
+.col-xs-5 {
+  width: 38.8%;
+}
+
+.col-xs-6 {
+  width: 47%;
+}
+
+.col-xs-7 {
+  width: 55%;
+}
+
+.col-xs-8 {
+  width: 63.5%;
+}
+
+.col-xs-9 {
+  width: 72%;
+}
+
+.col-xs-10 {
+  width: 80%;
+}
+
+.col-xs-11 {
+  width: 88%;
+}
+
+.col-xs-12 {
+  width: 100%;
+}
+
+/* 修复ie6下分页组件css解析失败的问题 */
+.pagination .active a,
+.pagination .active span {
+  z-index: 2;
+  color: #ffffff;
+  cursor: default;
+  background-color: #428bca;
+  border-color: #428bca;
+}

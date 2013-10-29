@@ -1,0 +1,38 @@
+<?php 
+$this->headMeta()->append('<meta charset="utf-8">')->append('<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />');
+$this->headTitle()->append("test")->append("category");
+?>
+
+<script src="<?php echo $this->serverUrl();?>/js/jquery.showLoading.min.js"></script>
+<script src="<?php echo $this->serverUrl();?>/js/jquery.blockUI.js"></script>
+<script src="<?php echo $this->serverUrl();?>/js/bootbox.js"></script>
+<script src="<?php echo $this->serverUrl();?>/js/jquery.form.min.js"></script>
+<script src="<?php echo $this->serverUrl();?>/js/custom.js"></script>
+
+<script>
+$(document).ready(function() {
+    bindFormToSubmit("mainForm");
+});
+</script>
+
+<div class="container">
+    <form class="form-horizontal" role="form" name="mainForm" id="mainForm" method="post" action="<?php echo $this->url(array('action'=>"get-json"));?>">
+    <div class="form-group">
+        <label for="inputUsername" class="col-xs-2 control-label">用户名</label>
+        <div class="col-xs-10">
+            <div class="row">
+                <div class="col-xs-5">
+                    <input class="form-control input-lg" type="text" id="inputUsername" name="username" placeholder="">
+                </div>
+            </div>
+            <span class="help-block">4-16位；</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-2 control-label"></label>
+        <div class="col-xs-5">
+            <button type="submit" class="btn btn-primary btn-lg">提交</button>
+        </div>
+    </div>
+    </form>
+</div>
