@@ -4966,48 +4966,36 @@ input[type="submit"].btn.btn-mini {
 .col-xs-1 {
   width: 5.7%;
 }
-
 .col-xs-2 {
-  width: 13.8%;
-  border-color: #428bca;
+  width: 13.96%;
 }
-
 .col-xs-3 {
-  width: 22%;
+  width: 22.2%;
 }
-
 .col-xs-4 {
   width: 30.5%;
 }
-
 .col-xs-5 {
   width: 38.8%;
 }
-
 .col-xs-6 {
   width: 47%;
 }
-
 .col-xs-7 {
-  width: 55%;
+  width: 55.2%;
 }
-
 .col-xs-8 {
   width: 63.5%;
 }
-
 .col-xs-9 {
   width: 72%;
 }
-
 .col-xs-10 {
   width: 80%;
 }
-
 .col-xs-11 {
-  width: 88%;
+  width: 88.3%;
 }
-
 .col-xs-12 {
   width: 100%;
 }
@@ -5020,4 +5008,19 @@ input[type="submit"].btn.btn-mini {
   cursor: default;
   background-color: #428bca;
   border-color: #428bca;
+}
+
+/* 修复ie6下input样式被重写的问题*/
+.form-control{
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
 }
