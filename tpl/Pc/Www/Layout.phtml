@@ -16,12 +16,11 @@
 <link href="<?php echo $this->serverUrl();?>/css/non-responsive.css" rel="stylesheet" media="screen">
 <link href="<?php echo $this->serverUrl();?>/css/showLoading.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/bootstrap.min.js"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
-  <script src="<?php echo $this->serverUrl();?>/js/html5shiv.js"></script>
-  <script src="<?php echo $this->serverUrl();?>/js/respond.min.js"></script>
+<script src="<?php echo $this->serverUrl();?>/js/html5shiv.js"></script>
+<script src="<?php echo $this->serverUrl();?>/js/respond.min.js"></script>
 <![endif]-->
 <style type="text/css">
 body {
@@ -58,6 +57,14 @@ body {
 <div class="container">
 Total time:<?php echo $this->totalTime();?>
 </div>
+
+<!-- js文件放在网页底部可以加快网页加载速度 -->
+<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/jquery.showLoading.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/bootbox.js"></script>
+<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/jquery.form.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/custom.js"></script>
     
 <!--[if lte IE 6]>
 <script type="text/javascript" src="<?php echo $this->serverUrl();?>/js/bootstrap-ie.js"></script>
