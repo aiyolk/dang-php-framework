@@ -20,7 +20,7 @@ class MysqlPdo
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
         }
-        
+
         $this->_db = $db;
     }
 
@@ -83,7 +83,7 @@ class MysqlPdo
             $query .= $space.$key . "= '" . $val. "'";
             $space=', ';
         }
-        $query .=' WHERE ' . $where.' ';
+        $query .=' WHERE ' . $where.'';
 
         #$result = $this->exec($query);
         $sth = $this->prepare($query);

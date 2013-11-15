@@ -1,21 +1,24 @@
 <?php
 
-namespace Model\Mongodb;
+namespace Dang\Model;
 
-abstract class AbstractMongodb
+abstract class Mongodb
 {
     protected static $_instance = array();
 
-    protected $mongo;
+    //protected $mongo;
 
     public function __construct()
     {
+        /*
         $config = \Dang\Quick::config("mongodb");
         if(APPLICATION_ENV == "development"){
             $this->mongo = new \Mongo("mongodb://".$config->host.":".$config->port."");
         }else{
             $this->mongo = new \Mongo("mongodb://".$config->host.":".$config->port."", array("replicaSet" => "myset"));
         }
+         *
+         */
     }
 
     public static function instance()

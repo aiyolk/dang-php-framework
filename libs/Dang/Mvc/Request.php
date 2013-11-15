@@ -187,5 +187,13 @@ class Dang_Mvc_Request
         $this->_get[$name] = $value;
         return $this;
     }
+
+    /*
+     * 检查是否是ajax请求
+     */
+    public function isAjaxRequest()
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
 }
 ?>

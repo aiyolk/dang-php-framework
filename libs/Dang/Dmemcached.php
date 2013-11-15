@@ -49,7 +49,7 @@ class Dmemcached
     {
         $memc = $this->memcached;
 
-        if (!$memc->set($normalizedKey)) {
+        if (!$memc->delete($normalizedKey)) {
             return false;
         }
 
