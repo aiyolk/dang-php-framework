@@ -11,6 +11,8 @@ namespace Apps;
 
 class Quick
 {
+    private static $_upyun;
+    private static $_simpleHtmlDom;
     private static $_phpmailer;
     private static $_mobileDetect;
     private static $_ssdb;
@@ -20,6 +22,29 @@ class Quick
     private static $_couchbase;
     private static $_cassandra;
     private static $_phpcassa;
+
+    public static function upyun()
+    {
+        if(isset(self::$_upyun)) {
+            return self::$_upyun;
+        }
+
+        self::$_upyun = new \Apps\Upyun\Client();
+
+        return self::$_upyun;
+    }
+
+    public static function simpleHtmlDom()
+    {
+        if(isset(self::$_simpleHtmlDom)) {
+            return self::$_simpleHtmlDom;
+        }
+
+        require 'SimpleHtmlDom/simple_html_dom.php';
+        self::$_simpleHtmlDom = new \simple_html_dom();
+
+        return self::$_simpleHtmlDom;
+    }
 
     /*
      * phpmailer调用器
