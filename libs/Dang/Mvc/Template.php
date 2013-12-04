@@ -109,7 +109,8 @@ class Dang_Mvc_Template
             return $this->_device;
         }
 
-        $this->_device = Dang_Mvc_Param::instance()->getDevice();
+        $device = Dang_Mvc_Param::instance()->getDevice();
+        $this->_device = ucfirst($device);
         return $this->_device;
     }
 
@@ -206,8 +207,12 @@ class Dang_Mvc_Template
         if($defaultDevice == $this->getDevice()){
             throw new Exception($filename." not found!");
         }
+
         //模板一致性（加入下面的这句，可以使action和layout及partial调用同一个驱动器下的模板）
-        $this->setDevice($defaultDevice);
+        $config = \Dang\Quick::config("base");
+        if(isset($config->tplConsistency) && $config->tplConsistency == "true"){
+            $this->setDevice($defaultDevice);
+        }
 
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getController()."/".$this->getAction(). ".".$this->getExtension();
         if(!file_exists($filename)){
