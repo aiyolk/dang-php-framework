@@ -50,10 +50,16 @@ class Dang_Mvc_View_HelperManager
         return $this->_services[$name];
     }
 
-    public function getHelper($name, $argv = array())
+    /*
+     * 使用func_get_args，可以对方法传任何参数
+     */
+    public function getHelper($name)
     {
+        $args = func_get_args();
+        array_shift($args);
+
         $viewHelper = $this->getInvoke($name);
-        $serverUrl = call_user_func_array($viewHelper, $argv);
+        $serverUrl = call_user_func_array($viewHelper, $args);
 
         return $serverUrl;
     }
