@@ -18,6 +18,11 @@ class Dang_Mvc_Autoloader
 
     public function register()
     {
+        if (function_exists('__autoload')) {
+            //    Register any existing autoloader function with SPL, so we don't get any clashes
+            spl_autoload_register('__autoload');
+        }
+
         spl_autoload_register(array($this, "load"));
         return $this;
 
@@ -51,6 +56,10 @@ class Dang_Mvc_Autoloader
     private function load($className)
     {
         if (class_exists($className, false) || interface_exists($className, false)) {
+            return false;
+        }
+
+        if (strpos($className, 'PHPExcel') === 0) {
             return false;
         }
 

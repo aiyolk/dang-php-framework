@@ -7,6 +7,26 @@ class Quick
     private static $_config = array();
     private static $_logger = array();
 
+    public static function aliyunRds($dbname)
+    {
+        $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
+
+        $config = \Dang\Quick::config("aliyunRds");
+
+        $host = $config->{$dbname}->host;
+        $username = $config->{$dbname}->username;
+        $password = $config->{$dbname}->password;
+        $port = "3306";
+        if(isset($config->{$dbname}->port)){
+            $port = $config->{$dbname}->port;
+        }
+
+        $db = new \Dang\Sql\MysqlPdo($dbname, $host, $port, $username, $password);
+        $db->debug($dbdebug);
+
+        return $db;
+    }
+
     /*
      * 创建数据库连接
      */

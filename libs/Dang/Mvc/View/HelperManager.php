@@ -35,6 +35,22 @@ class Dang_Mvc_View_HelperManager
     {
     }
 
+    public function addInvoke($name, $class)
+    {
+        $invokes = array();
+        $invokes[$name] = $class;
+        $this->addInvokes($invokes);
+
+        return $this;
+    }
+
+    public function addInvokes($invokes)
+    {
+        $this->_invokableClasses = array_merge($this->_invokableClasses, $invokes);
+
+        return $this;
+    }
+
     public function getInvoke($name)
     {
         if(!array_key_exists($name, $this->_invokableClasses)){

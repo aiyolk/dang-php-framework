@@ -18,7 +18,7 @@ class Dang_Mvc_Utility
              "\\1",
              $param);
         $param = ucfirst($param);
-        
+
         return $param;
     }
 
@@ -28,13 +28,13 @@ class Dang_Mvc_Utility
              "strtolower('\\1-\\2')",
              $param);
         $param = strtolower($param);
-        
+
         return $param;
     }
 
     /*
      * 将数组转换成url字符串
-     * 
+     *
      * 参考：http_build_query
      */
     static function appendParams($array, $parent='')
@@ -43,7 +43,7 @@ class Dang_Mvc_Utility
         foreach ($array as $k => $v)
         {
             if (is_array($v))
-                $params[] = append_params($v, (empty($parent) ? urlencode($k) : $parent . '[' . urlencode($k) . ']'));
+                $params[] = self::appendParams($v, (empty($parent) ? urlencode($k) : $parent . '[' . urlencode($k) . ']'));
             else
                 $params[] = (!empty($parent) ? $parent . '[' . urlencode($k) . ']' : urlencode($k)) . '=' . urlencode($v);
         }

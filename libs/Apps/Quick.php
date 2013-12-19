@@ -11,6 +11,7 @@ namespace Apps;
 
 class Quick
 {
+    private static $_phpExcel;
     private static $_upyun;
     private static $_simpleHtmlDom;
     private static $_phpmailer;
@@ -22,6 +23,18 @@ class Quick
     private static $_couchbase;
     private static $_cassandra;
     private static $_phpcassa;
+
+    public static function phpExcel()
+    {
+        if(isset(self::$_phpExcel)) {
+            return self::$_phpExcel;
+        }
+
+        require 'PhpExcel/PHPExcel.php';
+        self::$_phpExcel = new \PHPExcel();
+
+        return self::$_phpExcel;
+    }
 
     public static function upyun()
     {
