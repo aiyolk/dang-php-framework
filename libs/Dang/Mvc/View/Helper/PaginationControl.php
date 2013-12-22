@@ -15,6 +15,6 @@ class Dang_Mvc_View_Helper_PaginationControl
         $pages['urlRoute'] = $urlRoute;
 
         //$argv = array($filename, $pages);
-        return \Dang_Mvc_View_HelperManager::instance()->getHelper("partial", $filename, $pages);
+        return \Dang_Mvc_View_Helper::instance()->partial($filename, $pages);
     }
 }

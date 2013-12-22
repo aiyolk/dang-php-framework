@@ -41,7 +41,7 @@ class Dang_Mvc_Route_Default implements \Dang_Mvc_Route_Interface
         }
         $param['action'] = \Dang_Mvc_Utility::paramMvcToUrl($action);
 
-        $serverUrl = \Dang_Mvc_View_HelperManager::instance()->getHelper("serverUrl");
+        $serverUrl = \Dang_Mvc_View_Helper::instance()->serverUrl();
 
         $url = $serverUrl;
         $str = \Dang_Mvc_Utility::appendParams($param);

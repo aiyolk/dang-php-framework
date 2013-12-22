@@ -67,17 +67,12 @@ class Dang_Mvc_View_HelperManager
     }
 
     /*
-     * 使用func_get_args，可以对方法传任何参数
+     * 只方法只能在 __call 方法里使用, $argv 是__call捕获的参数
      */
-    public function getHelper($name)
+    public function getHelper($name, $argv)
     {
-        $args = func_get_args();
-        array_shift($args);
-
         $viewHelper = $this->getInvoke($name);
-        $serverUrl = call_user_func_array($viewHelper, $args);
-
-        return $serverUrl;
+        return call_user_func_array($viewHelper, $argv);
     }
 
 }

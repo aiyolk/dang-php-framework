@@ -45,7 +45,7 @@ class Base implements \Dang_Mvc_Route_Interface
         $controller = \Dang_Mvc_Utility::paramMvcToUrl($controller);
         $action = \Dang_Mvc_Utility::paramMvcToUrl($action);
 
-        $serverUrl = \Dang_Mvc_View_HelperManager::instance()->getHelper("serverUrl");
+        $serverUrl = \Dang_Mvc_View_Helper::instance()->serverUrl();
 
         $url = $serverUrl."/".$module."/".$controller."/".$action;
         $str = \Dang_Mvc_Utility::appendParams($query);
