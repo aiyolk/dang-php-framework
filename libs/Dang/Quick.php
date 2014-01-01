@@ -4,11 +4,16 @@ namespace Dang;
 
 class Quick
 {
+    private static $_aliyunRds = array();
     private static $_config = array();
     private static $_logger = array();
 
     public static function aliyunRds($dbname)
     {
+        if(isset(self::$_aliyunRds[$dbname])){
+            return self::$_aliyunRds[$dbname];
+        }
+
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
         $config = \Dang\Quick::config("aliyunRds");
@@ -24,7 +29,25 @@ class Quick
         $db = new \Dang\Sql\MysqlPdo($dbname, $host, $port, $username, $password);
         $db->debug($dbdebug);
 
-        return $db;
+        self::$_aliyunRds[$dbname] = $db;
+
+        return self::$_aliyunRds[$dbname];
+    }
+
+    public static function aliyunRdsClose($dbname = null)
+    {
+        $aliyunRds = self::$_aliyunRds;
+        foreach ($aliyunRds as $_dbname => $db) {
+            unset(self::$_aliyunRds[$_dbname]);
+            if($dbname == $_dbname){
+                $db->close();
+                break;
+            }else{
+                $db->close();
+            }
+        }
+
+        return true;
     }
 
     /*
