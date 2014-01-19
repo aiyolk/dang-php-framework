@@ -21,7 +21,7 @@ class Utility
         //$tags = preg_replace("/([^0-9a-z]),([0-9a-z])/usi", "\\1 \\3", $tags);
         mb_internal_encoding("UTF-8");
         mb_regex_encoding("UTF-8");
-        $tags = mb_ereg_replace("、|；|;|，|（|\(|\)|）|\[|\]|\/", " ", $tags);
+        $tags = mb_ereg_replace("、|；|;|，|（|\(|\)|）|\[|\]|\/|\|", " ", $tags);
         //$tags = preg_replace("/[;\/\(\)\[\]]/usi", " ", $tags);
         $tags = trim($tags);
 
