@@ -30,14 +30,15 @@ class Dang_Mvc_Enter
         $device = Dang_Mvc_Request::instance()->getParamGet("device");
         if(!$device){
             $mobileDetect = \Apps\Quick::mobileDetect();
-            if($mobileDetect->isMobile()){
-                $device = "mobile";
-            }elseif($mobileDetect->isTablet()){
+            if($mobileDetect->isTablet()){
                 $device = "tablet";
+            }elseif($mobileDetect->isMobile()){
+                $device = "mobile";
             }else{
                 $device = "pc";
             }
         }
+      
         $device = Dang_Mvc_Utility::paramUrlToMvc($device);
         Dang_Mvc_Param::instance()->setDevice($device);
 
