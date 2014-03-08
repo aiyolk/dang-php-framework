@@ -4,6 +4,7 @@ namespace Dang;
 
 class Quick
 {
+    private static $_mysql = array();
     private static $_aliyunRds = array();
     private static $_config = array();
     private static $_logger = array();
@@ -57,11 +58,28 @@ class Quick
     {
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
-        $db = new \Dang\Sql\Mysql($name, $server);
-
+        if(isset(self::$_mysql[$name.":".$server])){
+            $db = self::$_mysql[$name.":".$server];
+        }else{
+            $db = new \Dang\Sql\Mysql($name, $server);
+            self::$_mysql[$name.":".$server] = $db;
+        }
+        
         $db->debug($dbdebug);
 
         return $db;
+    }
+    
+    /**
+     * 关闭mysql连接
+     */
+    public static function mysqlClose()
+    {
+        foreach (self::$_mysql as $key => $db) {
+            $db->close();
+        }
+        
+        return ;
     }
 
     public static function mongo($name)

@@ -11,6 +11,7 @@ namespace Apps;
 
 class Quick
 {
+    private static $_b8;
     private static $_phpExcel;
     private static $_upyun;
     private static $_simpleHtmlDom;
@@ -23,6 +24,17 @@ class Quick
     private static $_couchbase;
     private static $_cassandra;
     private static $_phpcassa;
+
+    public static function b8()
+    {
+        if(isset(self::$_b8)) {
+            return self::$_b8;
+        }
+
+        self::$_b8 = new \Apps\B8\Client();
+
+        return self::$_b8;
+    }
 
     public static function phpExcel()
     {
