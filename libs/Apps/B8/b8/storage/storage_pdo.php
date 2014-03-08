@@ -23,6 +23,17 @@ class b8_storage_pdo extends b8_storage_base
         # Pass the degenerator instance to this class
         $this->degenerator = $degenerator;
         
+        foreach($config as $name => $value) {
+            switch($name) {
+                case 'table_name':
+                case 'database':
+                    $this->config[$name] = (string) $value;
+                    break;
+                default:
+                    throw new Exception("b8_storage_mysql: Unknown configuration key: \"$name\"");
+            }
+        }
+                
         # Let's see if this is a b8 database and the version is okay
         $this->check_database();
     }
@@ -50,7 +61,6 @@ class b8_storage_pdo extends b8_storage_base
     
     protected function _get_query($tokens)
     {
-    
         # Construct the query ...
         
         if(count($tokens) > 1) {
@@ -58,9 +68,7 @@ class b8_storage_pdo extends b8_storage_base
             # We have more than 1 token
             
             $where = array();
-            
             foreach ($tokens as $token) {
-                $token = mysql_real_escape_string($token);
                 array_push($where, $token);
             }
             
@@ -69,7 +77,7 @@ class b8_storage_pdo extends b8_storage_base
         
         elseif(count($tokens) == 1) {
             # We have exactly one token
-            $token = mysql_real_escape_string($tokens[0]);
+            $token = $tokens[0];
             $where = "token = '" . $token . "'";
         }
         
@@ -81,7 +89,7 @@ class b8_storage_pdo extends b8_storage_base
         
         # ... and fetch the data
                 
-        $db = \Dang\Quick::mysql("b8", "slaver");
+        $db = \Dang\Quick::mysql($this->config['database'], "master");
         $sql = 'SELECT token, count_ham, count_spam FROM `' . $this->config['table_name'] . '` WHERE ' . $where . '';
         $all = $db->getAll($sql);
         
@@ -110,11 +118,8 @@ class b8_storage_pdo extends b8_storage_base
     
     protected function _put($token, $count)
     {
-    
-        $token = mysql_real_escape_string($token);
-        
-        $count_ham = mysql_real_escape_string($count['count_ham']);
-        $count_spam = mysql_real_escape_string($count['count_spam']);
+        $count_ham = $count['count_ham'];
+        $count_spam = $count['count_spam'];
         
         array_push($this->_puts, "('$token', '{$count['count_ham']}', '{$count['count_spam']}')");
         
@@ -132,10 +137,10 @@ class b8_storage_pdo extends b8_storage_base
     protected function _update($token, $count)
     {
     
-        $token = mysql_real_escape_string($token);
+        $token = $token;
         
-        $count_ham = mysql_real_escape_string($count['count_ham']);
-        $count_spam = mysql_real_escape_string($count['count_spam']);
+        $count_ham = $count['count_ham'];
+        $count_spam = $count['count_spam'];
         
         array_push($this->_updates, "('$token', '{$count['count_ham']}', '{$count['count_spam']}')");
         
@@ -152,7 +157,7 @@ class b8_storage_pdo extends b8_storage_base
     protected function _del($token)
     {
     
-        $token = mysql_real_escape_string($token);
+        $token = $token;
         
         array_push($this->_deletes, $token);
         
@@ -172,7 +177,7 @@ class b8_storage_pdo extends b8_storage_base
                 DELETE FROM `{$this->config['table_name']}`
                 WHERE token IN ('" . implode("', '", $this->_deletes) . "');
             ";
-            $db = \Dang\Quick::mysql("b8", "master");    
+            $db = \Dang\Quick::mysql($this->config['database'], "master");    
             $db->executeSql($sql);
             
             $this->_deletes = array();
@@ -183,7 +188,7 @@ class b8_storage_pdo extends b8_storage_base
                 INSERT INTO `{$this->config['table_name']}`(token, count_ham, count_spam)
                 VALUES " . implode(', ', $this->_puts) . ';
             ';
-            $db = \Dang\Quick::mysql("b8", "master");    
+            $db = \Dang\Quick::mysql($this->config['database'], "master");    
             $db->executeSql($sql);
 
             $this->_puts = array();
@@ -198,7 +203,7 @@ class b8_storage_pdo extends b8_storage_base
                     `{$this->config['table_name']}`.count_ham = VALUES(count_ham),
                     `{$this->config['table_name']}`.count_spam = VALUES(count_spam);
             ";
-            $db = \Dang\Quick::mysql("b8", "master");    
+            $db = \Dang\Quick::mysql($this->config['database'], "master");    
             $db->executeSql($sql);
                 
             $this->_updates = array();
