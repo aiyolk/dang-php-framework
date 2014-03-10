@@ -58,28 +58,10 @@ class Quick
     {
         $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
 
-        if(isset(self::$_mysql[$name.":".$server])){
-            $db = self::$_mysql[$name.":".$server];
-        }else{
-            $db = new \Dang\Sql\Mysql($name, $server);
-            self::$_mysql[$name.":".$server] = $db;
-        }
-        
+        $db = new \Dang\Sql\Mysql($name, $server);
         $db->debug($dbdebug);
 
         return $db;
-    }
-    
-    /**
-     * 关闭mysql连接
-     */
-    public static function mysqlClose()
-    {
-        foreach (self::$_mysql as $key => $db) {
-            $db->close();
-        }
-        
-        return ;
     }
 
     public static function mongo($name)
