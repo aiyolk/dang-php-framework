@@ -229,6 +229,12 @@ class Dang_Mvc_Template
             return $filename;
         }
 
+        //当前驱动根目录下的模板layout文件
+        $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getLayout(). ".".$this->getExtension();
+        if(file_exists($filename)){
+            return $filename;
+        }
+
         //如果没有找到适配的驱动模板，则使用默认模板
         $defaultDevice = $this->getDefaultDevice();
         if($defaultDevice == $this->getDevice()){
