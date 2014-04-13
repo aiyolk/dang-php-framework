@@ -226,7 +226,7 @@ class Quick
             return self::$_config[$name];
         }
 
-        $config = \Zend\Config\Factory::fromFile('./config/'.$name.'.php', true);
+        $config = \Dang\Config\Factory::fromFile('./config/'.$name.'.php');
         if($config){
             self::$_config[$name] = $config;
         }
