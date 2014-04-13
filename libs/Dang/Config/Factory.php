@@ -17,7 +17,7 @@ class Factory
         $pathinfo = pathinfo($filename);
 
         if (!isset($pathinfo['extension'])) {
-            throw new Dang\Exception\RuntimeException(sprintf(
+            throw new \Dang\Exception\RuntimeException(sprintf(
                 'Filename "%s" is missing an extension and cannot be auto-detected',
                 $filename
             ));
@@ -25,14 +25,14 @@ class Factory
         
         $extension = strtolower($pathinfo['extension']);
         if ($extension !== 'php') {
-            throw new Dang\Exception\RuntimeException(sprintf(
+            throw new \Dang\Exception\RuntimeException(sprintf(
                 'Unsupported config file extension: .%s',
                 $pathinfo['extension']
             ));
         } 
         
         if (!is_file($filename) || !is_readable($filename)) {
-            throw new Dang\Exception\RuntimeException(sprintf(
+            throw new \Dang\Exception\RuntimeException(sprintf(
                 "File '%s' doesn't exist or not readable",
                 $filename
             ));
