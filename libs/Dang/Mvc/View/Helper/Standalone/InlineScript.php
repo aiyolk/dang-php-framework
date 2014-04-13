@@ -28,7 +28,7 @@ class Dang_Mvc_View_Helper_Standalone_InlineScript
     {
         array_unshift($this->_items, $content);
     }
-    
+
     public function toString()
     {
         $string = "";
