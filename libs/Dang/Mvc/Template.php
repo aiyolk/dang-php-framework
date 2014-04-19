@@ -99,7 +99,7 @@ class Dang_Mvc_Template
 
     public function setDevice($name)
     {
-        $this->_device = $name;
+        $this->_device = ucfirst($name);
         return $this;
     }
 
