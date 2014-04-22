@@ -2,7 +2,7 @@
 
 namespace Dang;
 
-use Zend\Stdlib\Exception;
+use Dang\Exception;
 
 abstract class Build
 {
