@@ -63,6 +63,16 @@ class Quick
 
         return $db;
     }
+    
+    public static function mysql2($dbname)
+    {
+        $dbdebug = \Dang_Mvc_Request::instance()->getParamGet("dbdebug", 0);
+
+        $db = new \Dang\Sql\Mysql2($dbname);
+        $db->debug($dbdebug);
+
+        return $db;
+    }
 
     public static function mongo($name)
     {
