@@ -4,19 +4,17 @@ namespace Dang\Model;
 
 abstract class Ssdb
 {
-    protected static $_instance = array();
+    protected static $_instance = null;
 
-    public function __construct()
+    protected function __construct()
     {
     }
 
     public static function instance()
     {
-        $_className = get_called_class();
-        if (!isset(self::$_instance[$_className])) {
-            self::$_instance[$_className] = new $_className();
+        if (static::$_instance === null) {
+            static::$_instance = new static;
         }
-
-        return self::$_instance[$_className];
+        return static::$_instance;
     }
 }
