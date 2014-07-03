@@ -144,46 +144,4 @@ class Dang_Mail_Mailer
     }
 }
 
-/*
-$fromName = "吴庆成";
-$from = "wuqingcheng@dangdang.com"; //senders e-mail adress 
-$reply = "381766010@qq.com";
-$to = "wqc200@gmail.com"; //recipient 
-$subject = "关于短信发送的相关数据"; //subject 
-$bcc = "wuqingcheng@dangdang.com";
-$cc = "wuqingcheng@dangdang.com";
-$message = "
-<html>
-<head>
-<title>HTML email</title>
-</head>
-<body>
-<p>This email contains HTML Tags!</p>
-<table>
-<tr>
-<th>Firstname</th>
-<th>Lastname</th>
-</tr>
-<tr>
-<td>John</td>
-<td>中文名字</td>
-</tr>
-</table>
-</body>
-</html>
-";
-
-$mailer = new mailer();
-$mailer->to($to);
-$mailer->to($reply, $fromName);
-$mailer->from($from, $fromName);
-$mailer->reply($reply, $fromName);
-$mailer->subject($subject);
-$mailer->body($message, true);
-$mailer->bcc($bcc);
-$mailer->cc($cc, $fromName);
-$result = $mailer->send();
-print_r($result);
- */
-
 ?>
