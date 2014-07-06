@@ -91,20 +91,29 @@ class Dang_Mvc_Enter
 
         //根据返回的model对象的类型，决定使用什么样的输出方法
         if($result instanceof Dang_Mvc_View_Model_XmlModel){
-            header( "content-type: application/xml; charset=UTF-8" );
-            echo '<?xml version="1.0" encoding="UTF-8"?>';
-
+        	$actionModel = $result;
+            
+        	$filename = Dang_Mvc_Template::instance()->setExtension("pxml")->getActionFilename();
+        	$actionModel->setTemplate($filename);
+        	
+        	/*
             $module = Dang_Mvc_Template::instance()->getModule();
             $controller = Dang_Mvc_Template::instance()->getController();
             $action = Dang_Mvc_Template::instance()->getAction();
-
+            Dang_Mvc_Template::instance()->setExtension("pxml");
+            
             //获取method里的html代码
             $viewXmlModel = $result;
             $path = "./tpl/".$module."/".$controller;
             $viewXmlModel->setTemplatePath($path);
             $viewXmlModel->setTemplateName($action);
+            */
+        	
             $phpRenderer = new Dang_Mvc_PhpRenderer();
-            $content = $phpRenderer->renderModel($viewXmlModel);
+            $content = $phpRenderer->renderModel($actionModel);
+            
+            header( "content-type: application/xml; charset=UTF-8" );
+            echo '<?xml version="1.0" encoding="UTF-8"?>';
             echo $content;
 
         }elseif($result instanceof Dang_Mvc_View_Model_TxtModel){
