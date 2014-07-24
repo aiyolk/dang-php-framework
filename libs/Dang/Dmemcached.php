@@ -10,14 +10,24 @@ class Dmemcached
 
     public function __construct()
     {
-        $config = \Dang\Quick::config("memcacheServer");
-
-        $memcached = new MemcachedResource();
+        $config = \Dang\Quick::config("memcached");
+        
+        if(isset($config->username) && $config->username != ""){
+			$memcached = \Apps\Quick::memcacheSasl();
+		}else{
+        	$memcached = new MemcachedResource();
+		}
+		
         $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
         $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
         $memcached->setOption(MemcachedResource::OPT_LIBKETAMA_COMPATIBLE, true);
-        $memcached->addServers($config->toArray());
-
+        $memcached->addServer($config->host, $config->port, $config->weight);
+        
+        if(isset($config->username) && $config->username != ""){
+        	$memcached->setSaslAuthData($config->username, $config->password);
+        	$memcached->setSaveHandler();
+        }
+        
         $this->memcached = $memcached;
     }
 
@@ -30,7 +40,7 @@ class Dmemcached
         } else {
             $result = $memc->get($normalizedKey);
         }
-
+        
         $success = true;
         if ($result === false || $result === null) {
             $rsCode = $memc->getResultCode();

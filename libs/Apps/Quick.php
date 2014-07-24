@@ -11,6 +11,7 @@ namespace Apps;
 
 class Quick
 {
+    private static $_memcacheSasl;
     private static $_b8;
     private static $_phpExcel;
     private static $_upyun;
@@ -25,7 +26,19 @@ class Quick
     private static $_cassandra;
     private static $_phpcassa;
 
-    public static function b8()
+	public static function memcacheSasl()
+    {
+        if(isset(self::$_memcacheSasl)) {
+            return self::$_memcacheSasl;
+        }
+
+        require 'MemcacheSASL/MemcacheSASL.php';
+        self::$_memcacheSasl = new \MemcacheSASL();
+
+        return self::$_memcacheSasl;
+    }
+
+	public static function b8()
     {
         if(isset(self::$_b8)) {
             return self::$_b8;
