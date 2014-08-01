@@ -12,11 +12,15 @@ class Dmemcached
     {
         $config = \Dang\Quick::config("memcached");
         
+        /*
         if(isset($config->username) && $config->username != ""){
 			$memcached = \Apps\Quick::memcacheSasl();
 		}else{
         	$memcached = new MemcachedResource();
 		}
+		*/
+		
+		$memcached = new MemcachedResource();
 		
         $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
         $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
@@ -25,7 +29,7 @@ class Dmemcached
         
         if(isset($config->username) && $config->username != ""){
         	$memcached->setSaslAuthData($config->username, $config->password);
-        	$memcached->setSaveHandler();
+        	//$memcached->setSaveHandler();
         }
         
         $this->memcached = $memcached;
