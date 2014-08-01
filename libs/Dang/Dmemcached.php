@@ -17,11 +17,11 @@ class Dmemcached
         $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
         $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
         $memcached->setOption(MemcachedResource::OPT_LIBKETAMA_COMPATIBLE, true);
-        $memcached->setOption(MemcachedResource::OPT_BINARY_PROTOCOL, true);
         	
         $memcached->addServer($config->host, $config->port);
         
         if(isset($config->username) && $config->username != ""){
+        	$memcached->setOption(MemcachedResource::OPT_BINARY_PROTOCOL, true);
         	$memcached->setSaslAuthData($config->username, $config->password);
         }
         
