@@ -24,7 +24,7 @@ class Quick
     private static $_riak;
     private static $_couchbase;
     private static $_cassandra;
-    private static $_phpcassa;
+    private static $_hadoop;
 
 	public static function memcacheSasl()
     {
@@ -186,15 +186,17 @@ class Quick
         return self::$_cassandra;
     }
 
-    public static function phpcassa()
+    public static function hadoop()
     {
-        if (isset(self::$_phpcassa)) {
-            return self::$_phpcassa;
+        if (isset(self::$_hadoop)) {
+            return self::$_hadoop;
         }
 
-        self::$_phpcassa = new \Apps\Phpcassa\Client();
-
-        return self::$_phpcassa;
+        require 'Hadoop/autoload.php';
+        self::$_hadoop = "1";
+        #self::$_phpExcel = new \PHPExcel();
+        
+        return self::$_hadoop;
     }
 }
 

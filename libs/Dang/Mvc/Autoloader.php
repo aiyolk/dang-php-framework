@@ -68,8 +68,11 @@ class Dang_Mvc_Autoloader
 
         preg_match("/^[\\\]?([a-z]+)([_\\\])/si", $className, $m);
         if(!$m){
+        	return false;
+        	/*
             header("HTTP/1.0 404 Not Found");
             throw new Exception($className." no namespace!");
+            */
         }
         $namespace = strtolower($m[1]);
         $separator = $m[2];
@@ -86,8 +89,11 @@ class Dang_Mvc_Autoloader
 
         $filename = realpath($path)."/". preg_replace('/[_\\\]/', DIRECTORY_SEPARATOR, $className) . '.'. $extension;
         if(!file_exists($filename)){
+        	return false;
+        	/*
             header("HTTP/1.0 404 Not Found");
             throw new Exception("File: ".$filename." not found!");
+            */
         }
 
         return include $filename;
