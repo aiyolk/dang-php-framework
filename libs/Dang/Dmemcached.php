@@ -20,6 +20,7 @@ class Dmemcached
         	
         $memcached->addServer($config->host, $config->port);
         
+        //支持sasl功能
         if(isset($config->username) && $config->username != ""){
         	$memcached->setOption(MemcachedResource::OPT_BINARY_PROTOCOL, true);
         	$memcached->setSaslAuthData($config->username, $config->password);
