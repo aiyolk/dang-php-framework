@@ -11,25 +11,18 @@ class Dmemcached
     public function __construct()
     {
         $config = \Dang\Quick::config("memcached");
-        
-        /*
-        if(isset($config->username) && $config->username != ""){
-			$memcached = \Apps\Quick::memcacheSasl();
-		}else{
-        	$memcached = new MemcachedResource();
-		}
-		*/
 		
 		$memcached = new MemcachedResource();
 		
         $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
         $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
         $memcached->setOption(MemcachedResource::OPT_LIBKETAMA_COMPATIBLE, true);
-        $memcached->addServer($config->host, $config->port, $config->weight);
+        $memcached->setOption(MemcachedResource::OPT_BINARY_PROTOCOL, true);
+        	
+        $memcached->addServer($config->host, $config->port);
         
         if(isset($config->username) && $config->username != ""){
         	$memcached->setSaslAuthData($config->username, $config->password);
-        	//$memcached->setSaveHandler();
         }
         
         $this->memcached = $memcached;
