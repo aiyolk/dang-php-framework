@@ -63,6 +63,7 @@ class Dang_Mvc_Autoloader
             return false;
         }
 
+        //设置默认值
         $path = "./libs/";
         $extension = "php";
 
