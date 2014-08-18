@@ -86,5 +86,11 @@ class Dmemcached
         return true;
     }
 
+    public function flush()
+    {
+    	$memc = $this->memcached;
+    	
+    	return $memc->flush;
+    }
 }
 
