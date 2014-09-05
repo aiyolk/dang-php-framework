@@ -4,9 +4,13 @@ namespace Dang\Sql;
 
 Class SafePdo extends \PDO
 {
+	/*
+	 * 如果使用 throw new \Exception 会出现错误：Exception thrown without a stack frame in Unknown on line 0
+	 * 
+	 */
     public static function exception_handler($exception)
     {
-        throw new \Exception('Uncaught exception: '. $exception->getMessage());
+        die('Uncaught exception: '. $exception->getMessage());
     }
 
     /*
