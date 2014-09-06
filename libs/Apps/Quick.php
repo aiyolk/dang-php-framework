@@ -11,6 +11,7 @@ namespace Apps;
 
 class Quick
 {
+    private static $_autoloader = array();
     private static $_memcacheSasl;
     private static $_b8;
     private static $_phpExcel;
@@ -26,6 +27,23 @@ class Quick
     private static $_cassandra;
     private static $_hadoop;
 
+    public static function autoloader($appName)
+    {
+    	if (isset(self::$_autoloader[$appName])) {
+            return self::$_autoloader[$appName];
+        }
+
+        $filename = __DIR__ . DIRECTORY_SEPARATOR . $appName. DIRECTORY_SEPARATOR ."autoloader.php";
+        if(!file_exists($filename)){
+        	throw new \Exception("File: ".$filename." not found!");
+        }
+        
+        require $filename;
+        self::$_autoloader[$appName] = true;
+        
+        return self::$_autoloader[$appName];
+    }
+    
 	public static function memcacheSasl()
     {
         if(isset(self::$_memcacheSasl)) {
