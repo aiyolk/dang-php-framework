@@ -12,18 +12,20 @@ class Dmemcached
     {
         $config = \Dang\Quick::config("memcached");
 		
-		$memcached = new MemcachedResource();
-		
-        $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
-        $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
-        $memcached->setOption(MemcachedResource::OPT_LIBKETAMA_COMPATIBLE, true);
-        	
-        $memcached->addServer($config->host, $config->port);
-        
-        //支持sasl功能
-        if(isset($config->username) && $config->username != ""){
-        	$memcached->setOption(MemcachedResource::OPT_BINARY_PROTOCOL, true);
-        	$memcached->setSaslAuthData($config->username, $config->password);
+        $memcached = new MemcachedResource("ocs");
+        //检查是否已经生成了长连接
+        if (count($memcached->getServerList()) == 0){
+	        $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
+	        $memcached->setOption(MemcachedResource::OPT_DISTRIBUTION, MemcachedResource::DISTRIBUTION_CONSISTENT);
+	        $memcached->setOption(MemcachedResource::OPT_LIBKETAMA_COMPATIBLE, true);
+	        	
+	        $memcached->addServer($config->host, $config->port);
+	        
+	        //支持sasl功能
+	        if(isset($config->username) && $config->username != ""){
+	        	$memcached->setOption(MemcachedResource::OPT_BINARY_PROTOCOL, true);
+	        	$memcached->setSaslAuthData($config->username, $config->password);
+	        }
         }
         
         $this->memcached = $memcached;
@@ -90,7 +92,7 @@ class Dmemcached
     {
     	$memc = $this->memcached;
     	
-    	return $memc->flush;
+    	return $memc->flush();
     }
 }
 
