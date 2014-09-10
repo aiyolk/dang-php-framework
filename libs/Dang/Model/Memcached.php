@@ -6,9 +6,10 @@ abstract class Memcached
 {
     protected static $_instance = array();
 
-    protected $_dbdebug;
     protected $memcached;
 
+    protected $_dbdebug;
+    
     public function __construct()
     {
         $this->memcached = new \Dang\Dmemcached();
