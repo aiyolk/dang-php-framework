@@ -127,6 +127,9 @@ class Dang_Mvc_Enter
         }elseif($result instanceof Dang_Mvc_View_Model_JsonModel){
             echo json_encode($result->getVariables());
 
+        }elseif($result instanceof Dang_Mvc_View_Model_JsonpModel){
+            echo "jsonpCallback(".json_encode($result->getVariables()).")";
+
         }elseif($result instanceof Dang_Mvc_View_Model_HtmlModel){
             $actionModel = $result;
             $filename = Dang_Mvc_Template::instance()->getActionFilename();
