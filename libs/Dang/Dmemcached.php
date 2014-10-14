@@ -77,12 +77,12 @@ class Dmemcached
         return true;
     }
 
-    public function incrementItem(& $normalizedKey, $offset = 1)
+    public function incrementItem(& $normalizedKey, $offset = 1, $expiration = 0)
     {
         $memc = $this->memcached;
 
         if (!$memc->increment($normalizedKey, $offset)) {
-            $memc->set($normalizedKey, $offset);
+            $memc->set($normalizedKey, $offset, $expiration);
         }
 
         return true;
