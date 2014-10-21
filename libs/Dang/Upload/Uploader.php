@@ -3,7 +3,7 @@
 
 /*
  * 使用方法
-$uploader = new Lib_Uploader($_FILES['image_file']);
+$uploader = new \Dang\Upload\Uploader($imageFile);
 $uploader->setExtensions(array("jpg", 'gif'));
 $uploader->setSize(1000000);
 $uploader->setDir("/tmp");
@@ -24,8 +24,8 @@ class Uploader
     private $_dir;
     private $_name;//自定义的文件名
  
-    function __construct($sys){
-        $this->_sys = $sys;
+    function __construct($imageFile){
+        $this->_sys = $_FILES[$imageFile];
     }
     
     public function setDir($dir)
@@ -150,9 +150,9 @@ class Uploader
             array("3026B2758E66CF11","asf"),
             array("4D546864","mid")
         );
-        if(!file_exists($filename)) throw new Exception("no found file '$filename '!");
+        if(!file_exists($filename)) throw new \Exception("no found file '$filename '!");
         $file = @fopen($filename,"rb");
-        if(!$file) throw new Exception("Read file($filename) refuse!");
+        if(!$file) throw new \Exception("Read file($filename) refuse!");
         $bin = fread($file, 15); //只读15字节 各个不同文件类型，头信息不一样。
         fclose($file);
         foreach($typelist as $v)

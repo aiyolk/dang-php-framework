@@ -113,10 +113,10 @@ class Utility
             array("4D546864","mid")
         );
         
-        if(!file_exists($filename)) throw new Exception("File $filename not found!");
+        if(!file_exists($filename)) throw new \Exception("File $filename not found!");
         
         $file = @fopen($filename, "rb");
-        if(!$file) throw new Exception("Read file $filename refuse!");
+        if(!$file) throw new \Exception("Read file $filename refuse!");
         $bin = fread($file, 15); //只读15字节 各个不同文件类型，头信息不一样。
         fclose($file);
         foreach($typelist as $v)

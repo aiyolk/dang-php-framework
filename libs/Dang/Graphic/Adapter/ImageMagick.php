@@ -107,7 +107,7 @@ class ImageMagick extends DouAbstract
                 $positions[] = array(($this->_width - $overlayWidth - $padding) / 2, ($this->_height - $overlayHeight - $padding) / 2);
                 break;
             default:
-                throw new Exception('Do not support '.$position.' type of alignment');
+                throw new \Exception('Do not support '.$position.' type of alignment');
                 break;
         }
     
