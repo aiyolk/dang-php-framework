@@ -115,7 +115,7 @@ class PhpGd extends DouAbstract
                 return @imagecreatefromwbmp($file);
                 break;
             default:
-                throw new Exception('Do not support '.$this->_fileType.' type of image');
+                throw new \Exception('Do not support '.$this->_fileType.' type of image');
                 break;
         }
         return null;

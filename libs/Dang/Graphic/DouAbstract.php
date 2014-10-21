@@ -55,7 +55,7 @@ abstract class DouAbstract implements DouInterface
     public function setSourceFile($file) 
     {
         $this->_file = $file;
-
+        
         /**
          * Get size of image
          */
