@@ -13,6 +13,7 @@ class Dmemcached
         $config = \Dang\Quick::config("memcached");
 		
         $memcached = new MemcachedResource("ocs");
+
         //检查是否已经生成了长连接
         if (count($memcached->getServerList()) == 0){
 	        $memcached->setOption(MemcachedResource::OPT_COMPRESSION, true);
