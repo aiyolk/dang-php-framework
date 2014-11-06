@@ -92,14 +92,14 @@ class Quick
 
     public static function simpleHtmlDom()
     {
-        if(isset(self::$_simpleHtmlDom)) {
-            return self::$_simpleHtmlDom;
+        if(!isset(self::$_simpleHtmlDom)) {
+            require 'SimpleHtmlDom/simple_html_dom.php';
+            self::$_simpleHtmlDom = true;
         }
 
-        require 'SimpleHtmlDom/simple_html_dom.php';
-        self::$_simpleHtmlDom = new \simple_html_dom();
+        $simpleHtmlDom = new \simple_html_dom();
 
-        return self::$_simpleHtmlDom;
+        return $simpleHtmlDom;
     }
 
     /*
