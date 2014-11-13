@@ -32,6 +32,15 @@ class Dmemcached
         $this->memcached = $memcached;
     }
 
+    public function getItems($keys, & $casToken = null)
+    {
+    	$memc = $this->memcached;
+    	
+    	$result = $memc->getMulti($keys, $casToken, MemcachedResource::GET_PRESERVE_ORDER);
+    	
+    	return $result;
+    }
+    
     public function getItem(& $normalizedKey, & $success = null, & $casToken = null)
     {
         $memc = $this->memcached;
