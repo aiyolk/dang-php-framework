@@ -32,7 +32,7 @@ class Dmemcached
         $this->memcached = $memcached;
     }
 
-    public function getItems($keys, & $casToken = null)
+    public function getItems($keys)
     {
     	$memc = $this->memcached;
     	
