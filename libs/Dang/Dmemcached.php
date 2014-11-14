@@ -36,7 +36,7 @@ class Dmemcached
     {
     	$memc = $this->memcached;
     	
-    	$result = $memc->getMulti($keys, $casToken, MemcachedResource::GET_PRESERVE_ORDER);
+    	$result = $memc->getMulti($keys, null, MemcachedResource::GET_PRESERVE_ORDER);
     	
     	return $result;
     }
