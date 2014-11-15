@@ -41,6 +41,22 @@ class Dmemcached
     	return $result;
     }
     
+    /**
+     * 可以 是一个Unix时间戳（自1970年1月1日起至失效时间的整型秒数），或者是一个从现在算起的以秒为单位的数字。
+     * 对于后一种情况，这个 秒数不能超过60×60×24×30（30天时间的秒数）;
+     * 如果失效的值大于这个值， 服务端会将其作为一个真实的Unix时间戳来处理而不是 自当前时间的偏移。
+     * @param array $items
+     * @param inter $expiration
+     * @return bool
+     */
+    public function setItems($items, $expiration){
+        $memc = $this->memcached;
+        
+        $result = $memc->setMulti($items, $expiration);
+        
+        return $result;
+    }
+    
     public function getItem(& $normalizedKey, & $success = null, & $casToken = null)
     {
         $memc = $this->memcached;
