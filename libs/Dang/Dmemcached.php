@@ -49,7 +49,7 @@ class Dmemcached
      * @param inter $expiration
      * @return bool
      */
-    public function setItems($items, $expiration){
+    public function setItems($items, $expiration = 0){
         $memc = $this->memcached;
         
         $result = $memc->setMulti($items, $expiration);
