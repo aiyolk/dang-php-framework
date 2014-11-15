@@ -57,15 +57,11 @@ class Dmemcached
         return $result;
     }
     
-    public function getItem(& $normalizedKey, & $success = null, & $casToken = null)
+    public function getItem(& $normalizedKey, & $success = null)
     {
         $memc = $this->memcached;
 
-        if (func_num_args() > 2) {
-            $result = $memc->get($normalizedKey, null, $casToken);
-        } else {
-            $result = $memc->get($normalizedKey);
-        }
+        $result = $memc->get($normalizedKey);
         
         $success = true;
         if ($result === false || $result === null) {
