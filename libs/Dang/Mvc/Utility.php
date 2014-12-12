@@ -11,12 +11,26 @@ class Dang_Mvc_Utility
 {
     static function paramUrlToMvc($param)
     {
+        /*
         $param = preg_replace("/[_-]([a-z]){1}/e",
              "strtoupper('\\1')",
              $param);
-        $param = preg_replace("/[_-]([0-9]){1}/e",
+        */
+        $callback = function( $matches ){
+            return strtoupper($matches['1']);
+        };
+        $param = preg_replace_callback('/[_-]([a-z]){1}/', $callback, $param);
+        
+        $param = preg_replace("/[_-]([0-9]){1}/",
              "\\1",
              $param);
+        /*
+        $callback = function( $matches ){
+            return $matches['1'];
+        };
+        $param = preg_replace_callback('/[_-]([0-9]){1}/', $callback, $param);
+        */
+        
         $param = ucfirst($param);
 
         return $param;
@@ -24,9 +38,16 @@ class Dang_Mvc_Utility
 
     static function paramMvcToUrl($param)
     {
+        /*
         $param = preg_replace("/([a-z0-9]{1})([A-Z]){1}/e",
              "strtolower('\\1-\\2')",
              $param);
+        */
+        $callback = function( $matches ){
+            return strtolower($matches['1'])."-".strtolower($matches['2']);
+        };
+        $param = preg_replace_callback('/([a-z0-9]{1})([A-Z]){1}/', $callback, $param);
+        
         $param = strtolower($param);
 
         return $param;
