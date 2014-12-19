@@ -88,7 +88,8 @@ class Quick
             $options = $config->{$name}->options->toArray();
             $mongo = new \MongoClient("mongodb://".$server, $options);
         }
-        \MongoCursor::$slaveOkay = true;
+        $mongo->setReadPreference(\MongoClient::RP_NEAREST, array());
+        //\MongoCursor::$slaveOkay = true;
 
         return $mongo;
     }
