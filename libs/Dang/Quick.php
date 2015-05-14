@@ -184,6 +184,9 @@ class Quick
         $redis = new \Redis();
         $redis->pconnect($config->{$server}->host, $config->{$server}->port, $config->{$server}->timeout);
         $redis->select($db);
+        if(isset($config->{$server}->user) && isset($config->{$server}->password)){
+            $redis->auth($config->{$server}->user . ":" . $config->{$server}->password);
+        }
 
         return $redis;
     }
