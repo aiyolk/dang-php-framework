@@ -125,7 +125,12 @@ class Dang_Mvc_Enter
             echo $content;
 
         }elseif($result instanceof Dang_Mvc_View_Model_JsonModel){
-            echo json_encode($result->getVariables());
+            $callback = Dang_Mvc_Request::instance()->getParam("callback");
+            if($callback){
+                echo $callback."(".json_encode($result->getVariables()).")";
+            }else{
+                echo json_encode($result->getVariables());
+            }
 
         }elseif($result instanceof Dang_Mvc_View_Model_JsonpModel){
             echo "jsonpCallback(".json_encode($result->getVariables()).")";
