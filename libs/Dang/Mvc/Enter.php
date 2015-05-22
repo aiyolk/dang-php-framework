@@ -151,7 +151,7 @@ class Dang_Mvc_Enter
             echo $content;
 
         }else{
-            echo $result;
+            echo "Error: no model";
 
         }
     }
