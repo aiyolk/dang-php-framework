@@ -85,6 +85,7 @@ class Dang_Mvc_Enter
             }
 
             if($break == true){
+                echo "Error:forward pass 2";
                 break;
             }
         }
