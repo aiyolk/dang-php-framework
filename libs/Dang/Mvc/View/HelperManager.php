@@ -7,6 +7,7 @@ class Dang_Mvc_View_HelperManager
         'url'                 => 'Dang_Mvc_View_Helper_Url',
         'headMeta'            => 'Dang_Mvc_View_Helper_HeadMeta',
         'headScript'          => 'Dang_Mvc_View_Helper_HeadScript',
+        'footerScript'          => 'Dang_Mvc_View_Helper_FooterScript',
         'headTitle'           => 'Dang_Mvc_View_Helper_HeadTitle',
         'inlineScript'        => 'Dang_Mvc_View_Helper_InlineScript',
         'layout'              => 'Dang_Mvc_View_Helper_Layout',
