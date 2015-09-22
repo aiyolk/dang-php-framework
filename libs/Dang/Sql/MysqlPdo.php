@@ -14,6 +14,7 @@ class MysqlPdo
 
         try {
             $db = new \Dang\Sql\SafePdo($dsn, $user, $passwd, array(
+                \PDO::ATTR_TIMEOUT => 1,
                 \PDO::ATTR_PERSISTENT => true,
                 \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
             ));

@@ -10,8 +10,44 @@
 
 namespace Dang;
 
-class Utility
-{
+class Utility{
+    static function multiPage($itemTotal, $pageSize, $currentPage) {
+        $itemTotal = intval($itemTotal);
+        if ($currentPage < 1){
+            $currentPage = 1;
+        }
+        $pageTotal = ceil($itemTotal / $pageSize);
+        if ($pageTotal < 1){
+            $pageTotal = 1;
+        }
+        if ($currentPage > $pageTotal)
+            $currentPage = $pageTotal;
+        $pageStart = ( $currentPage - 1 ) * $pageSize;
+        $pageEnd = $pageStart + $pageSize;
+        $pageEnd = $pageEnd > $pageTotal ? $pageTotal : $pageEnd;
+        $pagePrev = $currentPage - 1;
+        if ($pagePrev < 0) {
+            $pagePrev = "";
+        }
+        $pageNext = $currentPage + 1;
+        if ($currentPage = $pageTotal) {
+            $pageNext = "";
+        }
+        
+        $multi = array();
+        $multi['item_total'] = $itemTotal;
+        $multi['page_total'] = $pageTotal;
+        /*
+        $multi['page_start'] = $pageStart;
+        $multi['page_end'] = $pageEnd;
+        $multi['page_next'] = $pageNext;
+        $multi['page_prev'] = $pagePrev;
+        */
+        $multi['current_page'] = $currentPage;
+        $multi['page_size'] = $pageSize;
+        return $multi;
+    }
+    
     static function buildTags($tags)
     {
         //$tags = "以不断;创新/的经营(理念)为先导，建立[学习型]组织和优势团队，引进专业人才、创建开放式的企业管理模式";

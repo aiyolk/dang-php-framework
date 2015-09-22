@@ -150,8 +150,11 @@ class Dang_Mvc_Enter
 
             echo $content;
 
+        }elseif($result instanceof Dang_Mvc_View_Model_NoneModel){
+            //do nothing
+            
         }else{
-            echo "Error: no model";
+            echo "\n Error: no model \n";
 
         }
     }
