@@ -58,7 +58,7 @@ class Dang_Mvc_Enter
     {
         $break = true;
         //用于forward，最多forward2次，避免进入死循环
-        for($i=0;$i<2;$i++)
+        for($i=0;$i<3;$i++)
         {
             $classer = "Controller_".$this->moduleName."_".$this->controllerName;
             //实例化控制器
