@@ -82,7 +82,12 @@ class MysqlPdo
         $space='';
         foreach($data as $key=>$val)
         {
-            $query .= $space.$key . "= '" . $val. "'";
+            if($val instanceof \Dang\Sql\Expression){
+                $query .= $space."`".$key. "` = ". $val->__toString();
+            }else{
+                $query .= $space.$key . "= '" . $val. "'";
+            }
+            
             $space=', ';
         }
         $query .=' WHERE ' . $where.'';
