@@ -26,6 +26,7 @@ class Quick
     private static $_couchbase;
     private static $_cassandra;
     private static $_hadoop;
+    private static $_nongli;
 
     public static function autoloader($appName)
     {
@@ -215,6 +216,16 @@ class Quick
         #self::$_phpExcel = new \PHPExcel();
         
         return self::$_hadoop;
+    }
+    
+    public static function nongli()
+    {
+        if (isset(self::$_nongli)) {
+            return self::$_nongli;
+        }
+
+        self::$_nongli = new \Apps\Nongli\Client();
+        return self::$_nongli;
     }
 }
 
