@@ -9,7 +9,7 @@ class Client
         require 'LunarSolarConverter.class.php';
     }
 
-    public function solarToLunar($date)
+    public function gongliDateToLunar($date)
     {
         list($year, $month, $day) = explode("-", $date);
         $solar = new \Solar();
@@ -19,5 +19,17 @@ class Client
         $lunar = \LunarSolarConverter::SolarToLunar($solar);
         
         return $lunar;
+    }
+    
+    public function nongliDateToSolar($date)
+    {
+        list($year, $month, $day) = explode("-", $date);
+        $lunar = new \Lunar();
+        $lunar->lunarYear = $year;
+        $lunar->lunarMonth = $month;
+        $lunar->lunarDay = $day;
+        $solar = \LunarSolarConverter::LunarToSolar($lunar);
+    
+        return $solar;
     }
 }

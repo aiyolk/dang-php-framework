@@ -138,7 +138,7 @@ class Quick
         $host = $config->{$server}->{$name}->host;
         $port = $config->{$server}->{$name}->port;
         //$instance = \Apps\Quick::ssdb();
-        $ssdb = new \SSDB\Client($host, $port);
+        $ssdb = new \SSDB\Client($host, $port, 600);
         //$ssdb = $instance->connect($host, $port);
         return $ssdb;
     }
