@@ -56,10 +56,11 @@ class Dang_Mvc_Enter
     //执行器
     public function run()
     {
-        $break = true;
         //用于forward，最多forward2次，避免进入死循环
         for($i=0;$i<3;$i++)
         {
+            $break = true;
+            
             $classer = "Controller_".$this->moduleName."_".$this->controllerName;
             //实例化控制器
             $controller = new $classer();
