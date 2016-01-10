@@ -7,6 +7,8 @@ use Memcached as MemcachedResource;
 class Dmemcached
 {
     protected $memcached;
+    
+    private $_debug;
 
     public function __construct()
     {
@@ -30,6 +32,8 @@ class Dmemcached
         }
         
         $this->memcached = $memcached;
+        
+        $this->_debug = \Dang_Mvc_Request::instance()->getParam("debug", 0);
     }
 
     public function getItems($keys)
@@ -59,6 +63,8 @@ class Dmemcached
     
     public function getItem(& $normalizedKey, & $success = null)
     {
+        \Zend\Debug\Debug::dump($normalizedKey, "Memcached key: ", $this->_debug);
+        
         $memc = $this->memcached;
 
         $result = $memc->get($normalizedKey);
@@ -73,6 +79,8 @@ class Dmemcached
                 $success = false;
             }
         }
+        
+        \Zend\Debug\Debug::dump($result, "Memcached result: ", $this->_debug);
 
         return $result;
     }
