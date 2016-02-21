@@ -24,6 +24,8 @@ abstract class DouAbstract implements DouInterface
      * @var string
      */
     protected $_file;
+    
+    protected $_resultFile;
 
     /**
      * File type: gif, jpg, jpeg, png
@@ -65,6 +67,13 @@ abstract class DouAbstract implements DouInterface
         $this->_height = $info[1];
 
         $this->_fileType = \Dang\Utility::getFileExtension($file);
+        
+        return $this;
+    }
+    
+    public function setResultFile($file)
+    {
+        $this->_resultFile = $file;
         
         return $this;
     }

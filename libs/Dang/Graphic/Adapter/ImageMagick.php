@@ -3,9 +3,31 @@
 namespace Dang\Graphic\Adapter;
 
 use Dang\Graphic\DouAbstract;
+use Imagick;
 
 class ImageMagick extends DouAbstract
 {
+    //合并图片
+    public function compositeImage($frontFile, $paddingLeft, $paddingTop)
+    {
+        $imagickBack = new Imagick();
+        $imagickBack->readImage($this->_file);
+        
+        $imagickFront = new Imagick();
+        $imagickFront->readImage($frontFile);
+        
+        $imagickBack->compositeImage($imagickFront, Imagick::COMPOSITE_DEFAULT, $paddingLeft, $paddingTop);
+        
+        // Let's merge all layers (it is not mandatory).
+        //$imagickBack->flattenImages();
+        
+        // We do not want to overwrite face.jpg.
+        $imagickBack->setImageFileName($this->_resultFile);
+        $imagickBack->writeImage();
+        
+        return true;
+    }
+    
     public function rotate($newFile, $angle) 
     {
         $imagick = new Imagick();
