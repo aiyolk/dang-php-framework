@@ -57,7 +57,7 @@ class Dang_Mvc_Enter
     public function run()
     {
         //用于forward，最多forward2次，避免进入死循环
-        for($i=0;$i<3;$i++)
+        for($i=0;$i<4;$i++)
         {
             $break = true;
             
