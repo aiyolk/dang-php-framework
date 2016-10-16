@@ -176,7 +176,11 @@ class Dang_Mvc_Template
 
     public function getPartialFilename()
     {
-        $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getPartial(). ".".$this->getExtension();
+        if(substr($this->getPartial(), 0, 1) == "/"){
+            $filename = $this->getPartial(). ".".$this->getExtension();
+        }else{
+            $filename = (string)$this->getPath(). "/".$this->getDevice()."/".$this->getPartial(). ".".$this->getExtension();
+        }
         if(file_exists($filename)){
             return $filename;
         }
