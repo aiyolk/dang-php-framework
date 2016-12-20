@@ -246,10 +246,16 @@ class Dang_Mvc_Template
         }
 
         $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getModule()."/".$this->getLayout(). ".".$this->getExtension();
-        if(!file_exists($filename)){
-            throw new Exception("Layout file: ".$filename."(under default device) not found!");
+        if(file_exists($filename)){
+            return $filename;
         }
 
-        return $filename;
+        $filename = (string)$this->getPath(). "/".$defaultDevice."/".$this->getLayout(). ".".$this->getExtension();
+        if(file_exists($filename)){
+            return $filename;
+        }
+
+        //没有找到layout模板
+        throw new Exception("Layout file: ".$filename."(under default device) not found!");
     }
 }
